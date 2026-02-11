@@ -1034,6 +1034,12 @@ function VideoHero({ project }: { project: ProjectDetail }) {
             preload="metadata"
             className="h-full w-full object-cover"
           />
+        ) : project.imageUrl ? (
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className="h-full w-full object-cover"
+          />
         ) : isCloudProject ? (
           /* Cloud-themed gradient */
           <div className="h-full w-full relative">
@@ -1236,9 +1242,7 @@ function VideoHero({ project }: { project: ProjectDetail }) {
 
           {/* Title */}
           <h1 className={cn(
-            "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-5 animate-fade-in-up stagger-1",
-            (isCloudProject || isBlockchainProject || isSaasProject || isFlutterProject) && "text-gradient",
-          )}>
+            "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-5 animate-fade-in-up stagger-1")}>
             {project.title}
           </h1>
 

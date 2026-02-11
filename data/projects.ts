@@ -177,8 +177,9 @@ export const projects: ProjectDetail[] = [
     forks: 5,
     url: "https://github.com/your-repo/aws-cloud-architecture",
     homepage: undefined,
-    featured: true,
+    featured: false,
     highlight: false,
+    imageUrl: "/im/aws.png",
     context: {
       why: "Cloud infrastructure design is the backbone of every production system. This academic project was built to demonstrate end-to-end AWS architecture — from network isolation to serverless container orchestration — at a level that mirrors real enterprise deployments.",
       problemSpace:
