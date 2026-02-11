@@ -97,17 +97,22 @@ export function HeroSection() {
               </div>
 
               <pre className="mt-6 overflow-hidden font-mono text-[10px] leading-relaxed text-primary/80 sm:text-xs md:text-sm">
-                <span className="sm:hidden">{`┌───────────────────────┐
-│  ██████╗███████╗      │
-│ ██╔════╝██╔════╝      │
-│ ██║     █████╗        │
-│ ██║     ██╔══╝        │
-│ ╚██████╗██║           │
-│  ╚═════╝╚═╝           │
-│                       │
-│  > experiments: 12    │
-│  > status: forging    │
-└───────────────────────┘`}</span>
+                <span className="sm:hidden">{`┌─────────────────────────────────────┐
+│                                                                                            │││              │
+│                                                                                            │││              │
+│ ██████╗  ███████╗ ███████╗                                              ││││
+│ ██╔══██╗ ██╔════╝ ██╔════╝                                                      ││         │││     │
+│ ██████╔╝ █████╗   █████╗                                                        │││            │││  │
+│ ██╔══██╗ ██╔══╝   ██╔══╝                                                        │││              │
+│ ██████╔╝ ███████╗ ███████╗                                                                 │││   │
+│ ╚═════╝  ╚══════╝ ╚══════╝                                                      ││       ││       │
+│            Bahaeddine Ellouze                                                                 │
+│                                                                                      ││         │
+│   > experiments loaded: 2                                                                  │││   │
+│   > status: forging                                                                │││           │
+│   > last spark: today                                                           ││              │
+│                                                                                  │││          │││   │
+└───── 46 75 6C 6C  53 74 61 63 6B ──────────────┘`}</span>
                 <span className="hidden sm:block">{`┌─────────────────────────────────────┐
 │                                                                                            │││              │
 │                                                                                            │││              │
