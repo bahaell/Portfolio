@@ -1,0 +1,79 @@
+{
+  "title": "Experience / Engineering Impact",
+  "introduction": "This section highlights concrete engineering work, focusing on technical decisions and their impact rather than roles or titles.",
+  "experiences": [
+    {
+      "id": "exp-1",
+      "context": {
+        "type": "Personal System",
+        "timeframe": "2024 – Present",
+        "team": "Solo"
+      },
+      "problem": "Needed a unified platform to manage personal projects, deployment pipelines, and documentation across multiple environments without relying on fragmented third-party tools that each required separate authentication and configuration.",
+      "decisions": [
+        "Chose Next.js with App Router for server-first rendering and simplified API co-location",
+        "Implemented token-based authentication with JWT refresh rotation instead of session cookies for stateless horizontal scaling",
+        "Used PostgreSQL with row-level security policies to isolate multi-project data without separate databases",
+        "Containerized the entire stack with Docker Compose for reproducible local and production environments",
+        "Set up GitHub Actions CI/CD with staged deployment to preview and production targets"
+      ],
+      "outcome": "Consolidated five separate tools into one system. Deployment time dropped from manual 20-minute processes to automated 3-minute pipelines. All projects now share a single authentication layer.",
+      "relatedProject": null,
+      "relatedNote": null
+    },
+    {
+      "id": "exp-2",
+      "context": {
+        "type": "Academic Project",
+        "timeframe": "2023 – 2024",
+        "team": "3 engineers"
+      },
+      "problem": "Built a real-time plant disease detection system for agricultural research. The constraint was running inference on low-bandwidth connections with images captured from mobile devices in field conditions with inconsistent lighting and resolution.",
+      "decisions": [
+        "Selected a lightweight CNN architecture (MobileNetV2) over heavier models to maintain sub-second inference on constrained hardware",
+        "Implemented server-side image preprocessing pipeline to normalize lighting and resolution before classification",
+        "Designed a REST API with queued inference to handle burst uploads without blocking the main thread",
+        "Used SQLite for local caching of recent predictions to provide offline fallback functionality"
+      ],
+      "outcome": "Achieved 94% classification accuracy across 12 plant disease categories. The system handled 200+ daily field submissions with an average response time under 800ms.",
+      "relatedProject": null,
+      "relatedNote": null
+    },
+    {
+      "id": "exp-3",
+      "context": {
+        "type": "Freelance",
+        "timeframe": "2024",
+        "team": "Solo"
+      },
+      "problem": "A small business needed an inventory and order management system to replace spreadsheet-based tracking that was causing duplicate orders and lost inventory records across three warehouse locations.",
+      "decisions": [
+        "Designed a normalized relational schema with optimistic locking to prevent concurrent edit conflicts",
+        "Built role-based access control with three permission tiers: warehouse staff, managers, and administrators",
+        "Implemented real-time stock synchronization across locations using WebSocket connections",
+        "Chose server-side rendering for the dashboard to minimize client-side JavaScript and improve load times on older hardware used in warehouses"
+      ],
+      "outcome": "Eliminated duplicate order entries entirely. Inventory discrepancy rate dropped from approximately 8% to under 1%. Staff onboarding time reduced because the interface matched their existing mental model of the workflow.",
+      "relatedProject": null,
+      "relatedNote": null
+    },
+    {
+      "id": "exp-4",
+      "context": {
+        "type": "Academic Project",
+        "timeframe": "2023",
+        "team": "2 engineers"
+      },
+      "problem": "Designed a secure file-sharing system for a university network security course. The primary constraint was implementing end-to-end encryption without relying on any external encryption service or library beyond standard Web Crypto API.",
+      "decisions": [
+        "Implemented AES-256-GCM encryption on the client side before upload to ensure zero-knowledge server architecture",
+        "Designed a key-exchange protocol using RSA-OAEP for secure sharing between authenticated users",
+        "Built chunked upload and download with integrity verification using SHA-256 checksums per chunk",
+        "Separated the authentication server from the file storage server to limit the blast radius of potential breaches"
+      ],
+      "outcome": "Passed all course security audit requirements. The system supported files up to 500MB with consistent encryption and decryption performance. Received highest grade in the cohort for architectural documentation.",
+      "relatedProject": null,
+      "relatedNote": null
+    }
+  ]
+}

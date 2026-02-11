@@ -1,0 +1,200 @@
+{
+  "title": "Engineering Growth Map",
+  "introduction": "A structured view of the technical domains I work across and the capabilities I build within each.",
+  "domains": [
+    {
+      "id": "core",
+      "title": "Core Engineering Foundations",
+      "purpose": "Understanding how systems work under the hood.",
+      "topics": [
+        {
+          "id": "core-1",
+          "title": "Data Structures & Algorithms",
+          "hint": "Efficient data organization and computational problem-solving."
+        },
+        {
+          "id": "core-2",
+          "title": "Operating Systems",
+          "hint": "Process management, memory allocation, and system-level interfaces."
+        },
+        {
+          "id": "core-3",
+          "title": "Networking Basics",
+          "hint": "Protocols, request lifecycles, and data transport fundamentals."
+        },
+        {
+          "id": "core-4",
+          "title": "System Design Fundamentals",
+          "hint": "Architectural patterns for scalable, maintainable systems."
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "title": "Backend & Distributed Systems",
+      "purpose": "Building reliable server-side architectures.",
+      "topics": [
+        {
+          "id": "be-1",
+          "title": "REST & API Design",
+          "hint": "Resource modeling, versioning, and contract-driven interfaces."
+        },
+        {
+          "id": "be-2",
+          "title": "Authentication & Authorization",
+          "hint": "Token-based identity verification and role-based access control."
+        },
+        {
+          "id": "be-3",
+          "title": "Databases (SQL & NoSQL)",
+          "hint": "Relational and document-based data persistence strategies."
+        },
+        {
+          "id": "be-4",
+          "title": "Scalability & Caching",
+          "hint": "Horizontal scaling, cache invalidation, and load distribution."
+        },
+        {
+          "id": "be-5",
+          "title": "Message Queues & Async Processing",
+          "hint": "Event-driven architecture and background task execution."
+        }
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend & User Experience",
+      "purpose": "Delivering usable, maintainable interfaces.",
+      "topics": [
+        {
+          "id": "fe-1",
+          "title": "Modern Frontend Architectures",
+          "hint": "Component-based rendering, SSR, and hydration strategies."
+        },
+        {
+          "id": "fe-2",
+          "title": "State Management",
+          "hint": "Predictable data flow across complex component hierarchies."
+        },
+        {
+          "id": "fe-3",
+          "title": "Accessibility & Performance",
+          "hint": "WCAG compliance, core web vitals, and perceived speed."
+        },
+        {
+          "id": "fe-4",
+          "title": "Design Systems",
+          "hint": "Reusable component libraries with consistent visual language."
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps & Infrastructure",
+      "purpose": "Shipping and maintaining software in production.",
+      "topics": [
+        {
+          "id": "do-1",
+          "title": "Docker & Containers",
+          "hint": "Application isolation and reproducible runtime environments."
+        },
+        {
+          "id": "do-2",
+          "title": "CI/CD Pipelines",
+          "hint": "Automated testing, building, and deployment workflows."
+        },
+        {
+          "id": "do-3",
+          "title": "Cloud Fundamentals",
+          "hint": "Compute, storage, and networking across cloud providers."
+        },
+        {
+          "id": "do-4",
+          "title": "Monitoring & Logging",
+          "hint": "Observability, alerting, and production diagnostics."
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Security & Reliability",
+      "purpose": "Building systems that can be trusted.",
+      "topics": [
+        {
+          "id": "sec-1",
+          "title": "Secure API Design",
+          "hint": "Input sanitization, rate limiting, and defense-in-depth patterns."
+        },
+        {
+          "id": "sec-2",
+          "title": "Input Validation",
+          "hint": "Schema-based verification at system boundaries."
+        },
+        {
+          "id": "sec-3",
+          "title": "Role-Based Access Control",
+          "hint": "Granular permission models for multi-tenant systems."
+        },
+        {
+          "id": "sec-4",
+          "title": "Error Handling & Resilience",
+          "hint": "Graceful degradation and fault-tolerant system behavior."
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "Intelligent Systems & AI",
+      "purpose": "Adding intelligence to real-world applications.",
+      "topics": [
+        {
+          "id": "ai-1",
+          "title": "AI Integration in Web Apps",
+          "hint": "Embedding model inference into production request flows."
+        },
+        {
+          "id": "ai-2",
+          "title": "Chatbots & Assistants",
+          "hint": "Conversational interfaces with context-aware responses."
+        },
+        {
+          "id": "ai-3",
+          "title": "Computer Vision",
+          "hint": "Image classification, detection, and visual data processing."
+        },
+        {
+          "id": "ai-4",
+          "title": "Automation Pipelines",
+          "hint": "Orchestrated workflows with intelligent decision points."
+        }
+      ]
+    },
+    {
+      "id": "professional",
+      "title": "Professional Growth",
+      "purpose": "Growing as a professional engineer.",
+      "topics": [
+        {
+          "id": "pro-1",
+          "title": "Code Reviews & Collaboration",
+          "hint": "Constructive feedback loops and shared code ownership."
+        },
+        {
+          "id": "pro-2",
+          "title": "Documentation & ADRs",
+          "hint": "Technical specs, architecture decisions, and knowledge transfer."
+        },
+        {
+          "id": "pro-3",
+          "title": "Open Source Contribution",
+          "hint": "Participating in and maintaining community-driven projects."
+        },
+        {
+          "id": "pro-4",
+          "title": "Technical Communication",
+          "hint": "Translating complex concepts for diverse audiences."
+        }
+      ]
+    }
+  ]
+}
