@@ -56,7 +56,7 @@ export const projects: ProjectDetail[] = [
     homepage: undefined,
     featured: true,
     highlight: true,
-    videoUrl: "/videos/PFE.mp4",
+    videoUrl: "https://res.cloudinary.com/dthmw5ptp/video/upload/q_auto/f_auto/v1775661999/PFE_wsfrsg.mp4",
     context: {
       why: "University Final-Year Project (PFE) management is often fragmented across emails, spreadsheets, and disconnected platforms. This leads to administrative chaos, lack of visibility for students, and coordination nightmares for departments.",
       problemSpace:
@@ -343,7 +343,7 @@ export const projects: ProjectDetail[] = [
     homepage: undefined,
     featured: false,
     highlight: false,
-    videoUrl: "/videos/dapp.mp4",
+    videoUrl: "https://res.cloudinary.com/dthmw5ptp/video/upload/q_auto/f_auto/v1775661959/Dapp_hfowyk.mp4",
     context: {
       why: "Traditional lost-and-found systems rely on trust between unknown parties and centralized intermediaries. There is no transparency, no immutability, and no mechanism to prevent fraud or false claims. Blockchain provides a natural solution to these coordination problems.",
       problemSpace:
@@ -506,7 +506,7 @@ export const projects: ProjectDetail[] = [
     homepage: undefined,
     featured: true,
     highlight: false,
-    videoUrl: "/videos/L&F.mp4",
+    videoUrl: "https://res.cloudinary.com/dthmw5ptp/video/upload/q_auto/f_auto/v1775661891/L_F_upnled.mp4",
 
     context: {
       why: "University campuses lack a unified digital layer for navigation, services, and lost item recovery. Students waste time with fragmented systems and manual processes.",
@@ -797,7 +797,7 @@ export const projects: ProjectDetail[] = [
     forks: 0,
     url: "undefined",
     featured: true,
-    videoUrl: "/videos/CRM.mp4",
+    videoUrl: "https://res.cloudinary.com/dthmw5ptp/video/upload/q_auto/f_auto/v1775661924/CRM_hk4iiw.mp4",
     context: {
       why: "A fitness center needed to replace manual ID card check-ins with automated facial recognition and integrate it with their membership management system.",
       problemSpace:
