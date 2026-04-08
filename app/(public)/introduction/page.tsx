@@ -36,7 +36,7 @@ export default function IntroductionPage() {
                     Place 'me.jpg' in public/images/ and update src below.
                  */}
                 <InnovativeImage
-                  src="/me1.png"
+                  src="/me.png"
                   alt="Bahaeddine Ellouze"
                   className="w-full h-full"
                 />
