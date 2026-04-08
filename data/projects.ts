@@ -52,10 +52,11 @@ export const projects: ProjectDetail[] = [
     year: "2026",
     stars: 0,
     forks: 0,
-    url: "https://github.com/your-repo/pfe-platform", // Placeholder
+    url: "https://github.com/bahaell/PFE_Management_Platform", // Placeholder
     homepage: undefined,
     featured: true,
     highlight: true,
+    videoUrl: "/videos/PFE.mp4",
     context: {
       why: "University Final-Year Project (PFE) management is often fragmented across emails, spreadsheets, and disconnected platforms. This leads to administrative chaos, lack of visibility for students, and coordination nightmares for departments.",
       problemSpace:
@@ -129,35 +130,35 @@ export const projects: ProjectDetail[] = [
         "Digitized archive of past academic work",
       ],
     },
-    architecture: `┌─────────────────────────────────────────────────────────────┐
-│                   FRONTEND (Next.js)                        │
-│                                                             │
-│   ┌──────────────┐   ┌──────────────┐   ┌───────────────┐   │
-│   │ Student UI   │   │ Teacher UI   │   │ Coord. UI     │   │
-│   └──────┬───────┘   └──────┬───────┘   └───────┬───────┘   │
-│          │                  │                   │           │
-└──────────┼──────────────────┼───────────────────┼───────────┘
-           │                  │                   │ HTTP / REST
-           │        ┌─────────▼──────────┐        │
-           │        │    API GATEWAY     │        │
-           │        └─────────┬──────────┘        │
-           │                  │                   │
-┌──────────▼──────────────────▼───────────────────▼───────────┐
-│                    MICROSERVICES LAYER                      │
-│                                                             │
-│ ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌─────────┐ │
-│ │ User Svc   │  │ Project Svc│  │ Subject Svc│  │ Doc Svc │ │
-│ └─────┬──────┘  └──────┬─────┘  └──────┬─────┘  └────┬────┘ │
-│       │                │               │             │      │
-│ ┌─────▼──────┐  ┌──────▼─────┐  ┌──────▼─────┐  ┌────▼────┐ │
-│ │ PostgreSQL │  │ MySQL      │  │ MongoDB    │  │ S3      │ │
-│ └────────────┘  └────────────┘  └────────────┘  └─────────┘ │
-└─────────────────────────────────────────────────────────────┘
-           │                  │
-    Events │ (RabbitMQ)       │ Realtime (Firebase)
-┌──────────▼──────────────────▼───────────────────────────────┐
-│                 ASYNC & REALTIME INFRA                      │
-└─────────────────────────────────────────────────────────────┘`,
+    architecture: `+-------------------------------------------------------------+
+|                   FRONTEND (Next.js)                        |
+|                                                             |
+|   +--------------+   +--------------+   +---------------+   |
+|   |  Student UI  |   |  Teacher UI  |   |   Coord. UI   |   |
+|   +------+-------+   +------+-------+   +-------+-------+   |
+|          |                  |                   |           |
++----------+------------------+-------------------+-----------+
+           |                  |                   | HTTP / REST
+           |        +---------v----------+        |
+           |        |    API GATEWAY     |        |
+           |        +---------+----------+        |
+           |                  |                   |
++----------v------------------v-------------------v-----------+
+|                    MICROSERVICES LAYER                      |
+|                                                             |
+| +------------+ +-------------+ +-------------+ +----------+ |
+| |  User Svc  | | Project Svc | | Subject Svc | | Doc Svc  | |
+| +-----+------+ +------+------+ +------+------+ +----+-----+ |
+|       |               |               |             |       |
+| +-----v------+ +------v------+ +------v------+ +----v-----+ |
+| | PostgreSQL | |    MySQL    | |   MongoDB   | |    S3    | |
+| +------------+ +-------------+ +-------------+ +----------+ |
++--------------+-----------------------------+----------------+
+               |                             |
+        Events | (RabbitMQ)         Realtime | (Firebase)
++--------------v-----------------------------v----------------+
+|                 ASYNC & REALTIME INFRA                      |
++-------------------------------------------------------------+`,
     keyLearnings: [
       "Domain-Driven Design (DDD) is essential when modeling complex institutional processes like 'Academic Years' and 'Defense Sessions'",
       "Separating 'Business Transactional Data' (SQL) from 'Collaboration Data' (Firebase) keeps the core clean and performant",
@@ -173,9 +174,9 @@ export const projects: ProjectDetail[] = [
     tags: ["AWS", "ECS Fargate", "Docker", "RDS", "CloudFront", "VPC", "CloudWatch", "Terraform"],
     status: "shipped",
     year: "2025",
-    stars: 12,
-    forks: 5,
-    url: "https://github.com/your-repo/aws-cloud-architecture",
+    stars: 0,
+    forks: 0,
+    url: "",
     homepage: undefined,
     featured: false,
     highlight: false,
@@ -274,42 +275,42 @@ export const projects: ProjectDetail[] = [
         "Production-grade security posture with least-privilege networking and audit trails",
       ],
     },
-    architecture: `┌──────────────────────────────────────────────────────────────────────┐
-│                          AWS CLOUD                                   │
-│                                                                      │
-│  ┌─────────────┐     ┌──────────────────────────────────────────┐   │
-│  │  CloudFront  │     │              VPC (Multi-AZ)               │   │
-│  │     CDN      │     │                                          │   │
-│  └──────┬──────┘     │  ┌─────────────────────────────────────┐ │   │
-│         │            │  │         Public Subnets               │ │   │
-│         │            │  │  ┌───────────┐   ┌──────────────┐   │ │   │
-│  ┌──────▼──────┐     │  │  │    ALB    │   │   Bastion    │   │ │   │
-│  │     S3      │     │  │  │  (Load    │   │    Host      │   │ │   │
-│  │   Bucket    │     │  │  │ Balancer) │   │   (SSH)      │   │ │   │
-│  └─────────────┘     │  │  └─────┬─────┘   └──────────────┘   │ │   │
-│                      │  └────────┼────────────────────────────┘ │   │
-│                      │           │                               │   │
-│                      │  ┌────────┼────────────────────────────┐ │   │
-│                      │  │        │   Private Subnets           │ │   │
-│                      │  │  ┌─────▼──────┐   ┌──────────────┐  │ │   │
-│                      │  │  │    ECS     │   │   NAT        │  │ │   │
-│                      │  │  │  Fargate   │   │  Gateway     │  │ │   │
-│                      │  │  │  Tasks     │   │              │  │ │   │
-│                      │  │  └─────┬──────┘   └──────────────┘  │ │   │
-│                      │  │        │                             │ │   │
-│                      │  │  ┌─────▼──────┐                     │ │   │
-│                      │  │  │    RDS     │                     │ │   │
-│                      │  │  │ PostgreSQL │                     │ │   │
-│                      │  │  │ Multi-AZ   │                     │ │   │
-│                      │  │  └────────────┘                     │ │   │
-│                      │  └─────────────────────────────────────┘ │   │
-│                      └──────────────────────────────────────────┘   │
-│                                                                      │
-│  ┌─────────┐  ┌─────────┐  ┌──────────┐  ┌──────┐  ┌───────────┐  │
-│  │CloudWatch│  │   SNS   │  │CloudTrail│  │  ECR │  │    IAM    │  │
-│  │Monitoring│  │ Alerts  │  │  Audit   │  │Images│  │  Policies │  │
-│  └─────────┘  └─────────┘  └──────────┘  └──────┘  └───────────┘  │
-└──────────────────────────────────────────────────────────────────────┘`,
+    architecture: `+----------------------------------------------------------------------+
+|                          AWS CLOUD                                   |
+|                                                                      |
+|  +-------------+     +------------------------------------------+    |
+|  |  CloudFront |     |              VPC (Multi-AZ)              |    |
+|  |     CDN     |     |                                          |    |
+|  +------+------+     |  +-------------------------------------+ |    |
+|         |            |  |         Public Subnets              | |    |
+|         |            |  |  +-----------+   +--------------+   | |    |
+|  +------v------+     |  |  |    ALB    |   |   Bastion    |   | |    |
+|  |     S3      |     |  |  |  (Load    |   |    Host      |   | |    |
+|  |   Bucket    |     |  |  | Balancer) |   |   (SSH)      |   | |    |
+|  +-------------+     |  |  +-----+-----+   +--------------+   | |    |
+|                      |  +--------+----------------------------+ |    |
+|                      |           |                              |    |
+|                      |  +--------+----------------------------+ |    |
+|                      |  |        |   Private Subnets          | |    |
+|                      |  |  +-----v------+   +--------------+  | |    |
+|                      |  |  |    ECS     |   |   NAT        |  | |    |
+|                      |  |  |  Fargate   |   |  Gateway     |  | |    |
+|                      |  |  |  Tasks     |   |              |  | |    |
+|                      |  |  +-----+------+   +--------------+  | |    |
+|                      |  |        |                            | |    |
+|                      |  |  +-----v------+                     | |    |
+|                      |  |  |    RDS     |                     | |    |
+|                      |  |  | PostgreSQL |                     | |    |
+|                      |  |  | Multi-AZ   |                     | |    |
+|                      |  |  +------------+                     | |    |
+|                      |  +-------------------------------------+ |    |
+|                      +------------------------------------------+    |
+|                                                                      |
+|  +---------+  +---------+  +----------+  +------+  +-----------+     |
+|  |CloudWatch| |   SNS   |  |CloudTrail|  |  ECR |  |    IAM    |     |
+|  |Monitoring| | Alerts  |  |  Audit   |  |Images|  |  Policies |     |
+|  +---------+  +---------+  +----------+  +------+  +-----------+     |
++----------------------------------------------------------------------+`,
     keyLearnings: [
       "VPC design is the foundation — get the network topology wrong and every layer above it inherits the problem",
       "Fargate eliminates undifferentiated heavy lifting, but you still need to understand the EC2 model it abstracts",
@@ -336,12 +337,13 @@ export const projects: ProjectDetail[] = [
     ],
     status: "shipped",
     year: "2025",
-    stars: 9,
-    forks: 4,
-    url: "https://github.com/your-repo/lost-and-found-dapp",
-    homepage: "https://lost-found-dapp.example.com",
+    stars: 0,
+    forks: 0,
+    url: "https://github.com/Habib-Amami/projet-blockchain",
+    homepage: undefined,
     featured: false,
     highlight: false,
+    videoUrl: "/videos/dapp.mp4",
     context: {
       why: "Traditional lost-and-found systems rely on trust between unknown parties and centralized intermediaries. There is no transparency, no immutability, and no mechanism to prevent fraud or false claims. Blockchain provides a natural solution to these coordination problems.",
       problemSpace:
@@ -447,39 +449,39 @@ export const projects: ProjectDetail[] = [
         "Gas-optimized contract design using IPFS for data and events for history",
       ],
     },
-    architecture: `┌──────────────────────────────────────────────────────────────────┐
-│                        FRONTEND (React + Wagmi)                  │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────────┐ │
-│  │  RainbowKit  │  │  Contract    │  │  Event Subscriptions   │ │
-│  │  Wallet UI   │  │  Hooks (Viem)│  │  (Real-time updates)   │ │
-│  └──────────────┘  └──────┬───────┘  └────────────┬───────────┘ │
-└───────────────────────────┼────────────────────────┼─────────────┘
-                            │                        │
-                   ┌────────▼────────────────────────▼──────────┐
-                   │            ETHEREUM (Sepolia)               │
-                   │                                             │
-                   │  ┌───────────────────────────────────────┐ │
-                   │  │         LostAndFound.sol               │ │
-                   │  │                                        │ │
-                   │  │  Item Registry ──── Match Engine        │ │
-                   │  │       │                  │              │ │
-                   │  │  State Machine ──── Escrow Logic        │ │
-                   │  │       │                  │              │ │
-                   │  │  Event Emitter ──── Access Control      │ │
-                   │  └───────────────────────────────────────┘ │
-                   └──────────────┬────────────────────────────┘
-                                  │ Events
-                   ┌──────────────▼──────────────────────────────┐
-                   │         OFF-CHAIN SERVICES                   │
-                   │                                              │
-                   │  ┌────────────────┐   ┌──────────────────┐  │
-                   │  │  AI Matching   │   │   IPFS / Pinata  │  │
-                   │  │  Engine        │   │   (Image + Meta  │  │
-                   │  │  (SigLIP/CLIP) │   │    Storage)      │  │
-                   │  │  Node.js +     │   │                  │  │
-                   │  │  Express       │   │  CID ──▶ On-chain│  │
-                   │  └────────────────┘   └──────────────────┘  │
-                   └──────────────────────────────────────────────┘`,
+    architecture: `+------------------------------------------------------------------+
+|                        FRONTEND (React + Wagmi)                  |
+|  +--------------+  +--------------+  +------------------------+  |
+|  |  RainbowKit  |  |   Contract   |  |  Event Subscriptions   |  |
+|  |  Wallet UI   |  | Hooks (Viem) |  |  (Real-time updates)   |  |
+|  +--------------+  +------+-------+  +------------+-----------+  |
++---------------------------+-----------------------+--------------+
+                            |                       |
+                 +----------v-----------------------v------------+
+                 |              ETHEREUM (Sepolia)               |
+                 |                                               |
+                 |  +-----------------------------------------+  |
+                 |  |           LostAndFound.sol              |  |
+                 |  |                                         |  |
+                 |  |   Item Registry ---- Match Engine       |  |
+                 |  |        |                  |             |  |
+                 |  |   State Machine ---- Escrow Logic       |  |
+                 |  |        |                  |             |  |
+                 |  |   Event Emitter ---- Access Control     |  |
+                 |  +-----------------------------------------+  |
+                 +----------------------+------------------------+
+                                        | Events
+                 +----------------------v------------------------+
+                 |            OFF-CHAIN SERVICES                 |
+                 |                                               |
+                 |  +-----------------+  +--------------------+  |
+                 |  |   AI Matching   |  |   IPFS / Pinata    |  |
+                 |  |   Engine        |  |   (Image + Meta    |  |
+                 |  |   (SigLIP/CLIP) |  |    Storage)        |  |
+                 |  |   Node.js +     |  |                    |  |
+                 |  |   Express       |  |  CID ---> On-chain |  |
+                 |  +-----------------+  +--------------------+  |
+                 +-----------------------------------------------+`,
     keyLearnings: [
       "Smart contract state machines eliminate entire categories of bugs -- if the enum transition is invalid, the transaction reverts",
       "Off-chain computation with on-chain verification is the pragmatic pattern for AI + blockchain integration",
@@ -498,12 +500,14 @@ export const projects: ProjectDetail[] = [
     tags: ["Angular", "Spring Boot", "Docker", "CI/CD", "NLP", "CNN", "REST API"],
     status: "shipped",
     year: "2024",
-    stars: 5,
-    forks: 3,
-    url: "https://github.com/your-repo/smart-campus",
-    homepage: "https://smart-campus.example.com",
+    stars: 0,
+    forks: 0,
+    url: "https://github.com/bahaell/smart-campus-assistant",
+    homepage: undefined,
     featured: true,
     highlight: false,
+    videoUrl: "/videos/L&F.mp4",
+
     context: {
       why: "University campuses lack a unified digital layer for navigation, services, and lost item recovery. Students waste time with fragmented systems and manual processes.",
       problemSpace:
@@ -582,22 +586,22 @@ export const projects: ProjectDetail[] = [
         "Automated deployment reduced release cycle from hours to minutes",
       ],
     },
-    architecture: `┌─────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Angular    │────▶│    NGINX     │────▶│  Spring Boot │
-│   Frontend   │     │ Reverse Proxy│     │   Auth API   │
-└─────────────┘     └──────┬───────┘     └──────────────┘
-                           │
-                    ┌──────┼──────────────────┐
-                    │      │                  │
-              ┌─────▼────┐ ┌─────▼────┐ ┌─────▼────┐
-              │ Navigation│ │ Chatbot  │ │ Lost &   │
-              │  Service  │ │ Service  │ │ Found    │
-              └──────────┘ └──────────┘ └─────┬────┘
-                                              │
-                                        ┌─────▼────┐
-                                        │ CNN Model│
-                                        │ Service  │
-                                        └──────────┘`,
+    architecture: `+--------------+     +---------------+     +---------------+
+|   Angular    |---->|     NGINX     |---->|  Spring Boot  |
+|   Frontend   |     | Reverse Proxy |     |   Auth API    |
++--------------+     +-------+-------+     +---------------+
+                             |
+               +-------------+-------------+
+               |             |             |
+         +-----v----+  +-----v----+  +-----v----+
+         |Navigation|  |  Chatbot |  |Lost&Found|
+         | Service  |  |  Service |  | Service  |
+         +----------+  +----------+  +-----+----+
+                                           |
+                                     +-----v----+
+                                     | CNN Model|
+                                     | Service  |
+                                     +----------+`,
     keyLearnings: [
       "CPU-bound ML inference is viable for non-realtime use cases when you optimize aggressively",
       "Docker Compose scales well enough for small service counts -- don't reach for Kubernetes prematurely",
@@ -614,10 +618,10 @@ export const projects: ProjectDetail[] = [
     tags: ["Angular", "Node.js", "Express", "MySQL", "OAuth2", "JWT", "Docker"],
     status: "archived",
     year: "2024",
-    stars: 6,
-    forks: 2,
-    url: "https://github.com/your-repo/healthconnect",
-    homepage: "https://healthconnect.example.com",
+    stars: 0,
+    forks: 0,
+    url: "https://github.com/bahaell/HealthConnect",
+    homepage: undefined,
     featured: true,
     context: {
       why: "Medical appointment scheduling in many clinics still relies on phone calls and paper. Patients need self-service booking with secure health data handling.",
@@ -687,18 +691,18 @@ export const projects: ProjectDetail[] = [
         "Database-level concurrency control for appointment integrity",
       ],
     },
-    architecture: `┌─────────────┐     ┌──────────────┐
-│   Angular    │────▶│  Express.js  │
-│   Frontend   │◀────│   REST API   │
-└──────┬──────┘     └──────┬───────┘
-       │ WebSocket         │
-       └───────────────────┤
-                    ┌──────┼──────┐
-                    │      │      │
-              ┌─────▼──┐ ┌─▼────┐ ┌▼─────────┐
-              │  MySQL  │ │ Auth │ │ Gemini   │
-              │   DB    │ │OAuth2│ │ Chatbot  │
-              └────────┘ └──────┘ └──────────┘`,
+    architecture: `+--------------+     +---------------+
+|   Angular    |---->|  Express.js   |
+|   Frontend   |<----|   REST API    |
++------+-------+     +-------+-------+
+       |   WebSocket         |
+       +---------------------+
+               +-------------+-------------+
+               |             |             |
+         +-----v----+  +-----v----+  +-----v----+
+         |  MySQL   |  |   Auth   |  |  Gemini  |
+         |    DB    |  |  OAuth2  |  | Chatbot  |
+         +----------+  +----------+  +----------+`,
     keyLearnings: [
       "Silent JWT refresh with request queuing is essential for smooth auth UX",
       "LLM integration in production requires caching, rate limiting, and fallback strategies from day one",
@@ -714,9 +718,9 @@ export const projects: ProjectDetail[] = [
     tags: ["Angular", "Node.js", "MongoDB", "Docker", "Payment API", "QR Code"],
     status: "archived",
     year: "2023",
-    stars: 7,
-    forks: 4,
-    url: "https://github.com/your-repo/car-rental",
+    stars: 0,
+    forks: 0,
+    url: "https://github.com/bahaell/CarRental",
     featured: false,
     context: {
       why: "Local car rental agencies in Tunisia relied on manual processes and phone-based booking. No digital system existed for small operators.",
@@ -789,9 +793,9 @@ export const projects: ProjectDetail[] = [
     tags: ["Angular", "Spring Boot", "Python", "Facial Recognition", "MySQL", "REST API"],
     status: "archived",
     year: "2023",
-    stars: 8,
-    forks: 3,
-    url: "https://github.com/your-repo/access-control-crm",
+    stars: 0,
+    forks: 0,
+    url: "undefined",
     featured: true,
     videoUrl: "/videos/CRM.mp4",
     context: {
@@ -852,17 +856,17 @@ export const projects: ProjectDetail[] = [
         "System processed 200+ daily check-ins with sub-second recognition",
       ],
     },
-    architecture: `┌──────────┐     ┌──────────────┐     ┌───────────────┐
-│ IP Camera│────▶│   Python     │────▶│  Spring Boot  │
-│  (RTSP)  │     │ Face Service │     │   CRM API     │
-└──────────┘     └──────────────┘     └───────┬───────┘
-                                              │
-                                    ┌─────────┼─────────┐
-                                    │         │         │
-                              ┌─────▼──┐ ┌────▼───┐ ┌──▼──────┐
-                              │  MySQL  │ │ Booking│ │ Notif.  │
-                              │   DB    │ │ Engine │ │ Service │
-                              └────────┘ └────────┘ └─────────┘`,
+    architecture: `+----------+     +--------------+     +---------------+
+| IP Camera|---->|    Python    |---->|  Spring Boot  |
+|  (RTSP)  |     | Face Service |     |   CRM API     |
++----------+     +--------------+     +-------+-------+
+                                              |
+                                +-------------+-------------+
+                                |             |             |
+                          +-----v----+  +-----v----+  +-----v----+
+                          |  MySQL   |  | Booking  |  |  Notif.  |
+                          |    DB    |  |  Engine  |  | Service  |
+                          +----------+  +----------+  +----------+`,
     keyLearnings: [
       "Face recognition in production is 80% preprocessing and environment control, 20% model quality",
       "Cross-language service boundaries (Python + Java) work well when the interface contract is clear",
@@ -886,9 +890,9 @@ export const projects: ProjectDetail[] = [
     ],
     status: "in-progress",
     year: "2025",
-    stars: 3,
-    forks: 1,
-    url: "https://github.com/your-repo/portfolio-saas",
+    stars: 0,
+    forks: 0,
+    url: "https://github.com/bahaell/portfolio-saas",
     homepage: undefined,
     featured: true,
     highlight: false,
@@ -977,32 +981,32 @@ export const projects: ProjectDetail[] = [
         "Product thinking applied to a personal engineering tool",
       ],
     },
-    architecture: `┌──────────────────────────────────────────────────────────────────┐
-│                     PORTFOLIO SAAS PLATFORM                       │
-│                                                                   │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │                   PRESENTATION LAYER                       │  │
-│  │  Next.js App Router ─── Server Components ─── Tailwind CSS │  │
-│  │  Dynamic Routes ─── Conditional Composition ─── Glass UI   │  │
-│  └────────────────────────┬───────────────────────────────────┘  │
-│                           │                                      │
-│  ┌────────────────────────▼───────────────────────────────────┐  │
-│  │                      DATA LAYER                            │  │
-│  │  TypeScript Interfaces ─── Typed Data Files ─── Schemas    │  │
-│  │  Projects ─── Notes ─── Roadmap ─── Experience             │  │
-│  └────────────────────────┬───────────────────────────────────┘  │
-│                           │                                      │
-│  ┌────────────────────────▼───────────────────────────────────┐  │
-│  │                    BACKEND (Planned)                        │  │
-│  │  API Routes ─── Auth.js ─── MongoDB / Mongoose             │  │
-│  │  Admin CMS ─── Analytics ─── Multi-tenant Config           │  │
-│  └────────────────────────────────────────────────────────────┘  │
-│                                                                   │
-│  ┌────────┐  ┌─────────┐  ┌────────────┐  ┌──────────────────┐  │
-│  │ Vercel │  │ MongoDB │  │  Auth.js   │  │   Analytics      │  │
-│  │ Deploy │  │   Atlas │  │  (Planned) │  │   (Planned)      │  │
-│  └────────┘  └─────────┘  └────────────┘  └─────────────────���┘  │
-└──────────────────────────────────────────────────────────────────┘`,
+    architecture: `+------------------------------------------------------------------+
+|                     PORTFOLIO SAAS PLATFORM                      |
+|                                                                  |
+|  +------------------------------------------------------------+  |
+|  |                    PRESENTATION LAYER                      |  |
+|  |  Next.js App Router --- Server Components --- Tailwind CSS |  |
+|  |  Dynamic Routes --- Conditional Composition --- Glass UI   |  |
+|  +------------------------+-----------------------------------+  |
+|                           |                                      |
+|  +------------------------v-----------------------------------+  |
+|  |                      DATA LAYER                            |  |
+|  |  TypeScript Interfaces --- Typed Data Files --- Schemas    |  |
+|  |  Projects --- Notes --- Roadmap --- Experience             |  |
+|  +------------------------+-----------------------------------+  |
+|                           |                                      |
+|  +------------------------v-----------------------------------+  |
+|  |                    BACKEND (Planned)                       |  |
+|  |  API Routes --- Auth.js --- MongoDB / Mongoose             |  |
+|  |  Admin CMS --- Analytics --- Multi-tenant Config           |  |
+|  +------------------------------------------------------------+  |
+|                                                                  |
+|  +--------+  +---------+  +------------+  +------------------+   |
+|  | Vercel |  | MongoDB |  |  Auth.js   |  |    Analytics     |   |
+|  | Deploy |  |  Atlas  |  | (Planned)  |  |    (Planned)     |   |
+|  +--------+  +---------+  +------------+  +------------------+   |
++------------------------------------------------------------------+`,
     keyLearnings: [
       "Architecture decisions compound -- establishing data separation early prevents the rewrite trap as features grow",
       "A portfolio is a product. Treating it as one changes every design and engineering decision for the better",
@@ -1028,9 +1032,9 @@ export const projects: ProjectDetail[] = [
     ],
     status: "archived",
     year: "2025",
-    stars: 6,
-    forks: 2,
-    url: "https://github.com/your-repo/movie-app-flutter",
+    stars: 0,
+    forks: 0,
+    url: "https://github.com/bahaell/movie_app",
     homepage: undefined,
     featured: true,
     highlight: false,
@@ -1139,37 +1143,37 @@ export const projects: ProjectDetail[] = [
         "Algorithmic matching system with edge case handling and relevance scoring",
       ],
     },
-    architecture: `┌──────────────────────────────────────────────────────────────────┐
-│                     FLUTTER APPLICATION                          │
-│                                                                  │
-│  ┌──────────────────────────────────────────────────────────┐   │
-│  │                    UI LAYER (Widgets)                     │   │
-│  │  Movie Screens ─── Admin Dashboard ─── Auth Screens      │   │
-│  │  Favorites View ─── Matching View ─── Search             │   │
-│  └────────────────────────┬─────────────────────────────────┘   │
-│                           │                                      │
-│  ┌────────────────────────▼─────────────────────────────────┐   │
-│  │                  PROVIDER LAYER (State)                    │   │
-│  │  AuthProvider ─── MovieProvider ─── FavoritesProvider      │   │
-│  │  AdminProvider ─── MatchingProvider                        │   │
-│  └────────────────────────┬─────────────────────────────────┘   │
-│                           │                                      │
-│  ┌────────────────────────▼─────────────────────────────────┐   │
-│  │                  SERVICE LAYER (Data)                      │   │
-│  │  TMDBService ─── FirestoreService ─── AuthService         │   │
-│  │  MatchingService ─── CacheService                         │   │
-│  └────────────────────────┬─────────────────────────────────┘   │
-│                           │                                      │
-└───────────────────────────┼──────────────────────────────────────┘
-                            │
-             ┌──────────────┼──────────────────┐
-             │              │                  │
-       ┌─────▼─────┐  ┌────▼──────┐   ┌──────▼──────┐
-       │  Firebase  │  │ Firebase  │   │   TMDB      │
-       │   Auth     │  │ Firestore │   │    API      │
-       │            │  │ (Movies,  │   │  (External) │
-       │  Email/Pwd │  │  Users)   │   │             │
-       └───────────┘  └───────────┘   └─────────────┘`,
+    architecture: `+------------------------------------------------------------------+
+|                       FLUTTER APPLICATION                        |
+|                                                                  |
+|  +------------------------------------------------------------+  |
+|  |                     UI LAYER (Widgets)                     |  |
+|  |  Movie Screens --- Admin Dashboard --- Auth Screens        |  |
+|  |  Favorites View --- Matching View --- Search               |  |
+|  +-------------------------+----------------------------------+  |
+|                            |                                     |
+|  +-------------------------v----------------------------------+  |
+|  |                   PROVIDER LAYER (State)                   |  |
+|  |  AuthProvider --- MovieProvider --- FavoritesProvider      |  |
+|  |  AdminProvider --- MatchingProvider                        |  |
+|  +-------------------------+----------------------------------+  |
+|                            |                                     |
+|  +-------------------------v----------------------------------+  |
+|  |                   SERVICE LAYER (Data)                     |  |
+|  |  TMDBService --- FirestoreService --- AuthService          |  |
+|  |  MatchingService --- CacheService                          |  |
+|  +-------------------------+----------------------------------+  |
+|                            |                                     |
++----------------------------+-------------------------------------+
+                             |
+              +--------------+--------------+
+              |              |              |
+        +-----v-----+  +-----v-----+  +-----v-----+
+        |  Firebase |  |  Firebase |  |   TMDB    |
+        |   Auth    |  | Firestore |  |    API    |
+        |           |  | (Movies,  |  |(External) |
+        | Email/Pwd |  |  Users)   |  |           |
+        +-----------+  +-----------+  +-----------+`,
     keyLearnings: [
       "Service-layer separation in Flutter pays dividends immediately -- mocking Firebase for tests becomes trivial when widgets never call it directly",
       "Provider is sufficient for most mobile state management needs. Reaching for BLoC or Riverpod prematurely adds complexity without proportional benefit",

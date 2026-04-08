@@ -189,12 +189,12 @@ export function ProjectsPageContent() {
                   <Github className="h-4 w-4" />
                   <span className="underline-animate">source</span>
                 </span>
-                {project.homepage && (
+                {/*project.homepage && (
                   <span className="flex items-center gap-2 font-mono text-xs text-primary group-hover:text-foreground transition-all duration-300">
                     <ExternalLink className="h-4 w-4" />
                     <span className="underline-animate">live</span>
                   </span>
-                )}
+                )*/}
               </div>
 
               {/* View case study hint */}

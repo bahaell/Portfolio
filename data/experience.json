@@ -1,77 +1,60 @@
 {
   "title": "Experience / Engineering Impact",
-  "introduction": "This section highlights concrete engineering work, focusing on technical decisions and their impact rather than roles or titles.",
+  "introduction": "Real-world engineering work — from cloud infrastructure migration to full-stack product delivery. Each entry focuses on technical decisions made and their measurable outcomes.",
   "experiences": [
     {
-      "id": "exp-1",
+      "id": "exp-cloud-officent",
       "context": {
-        "type": "Personal System",
-        "timeframe": "2024 – Present",
-        "team": "Solo"
+        "type": "Cloud Engineering Internship",
+        "timeframe": "Jul. 2025 – Sep. 2025",
+        "team": "Officent IT — Remote"
       },
-      "problem": "Needed a unified platform to manage personal projects, deployment pipelines, and documentation across multiple environments without relying on fragmented third-party tools that each required separate authentication and configuration.",
+      "problem": "The company's application stack ran on a single-region, manually managed AWS setup with no auto-scaling and unreliable deployments. The goal was to redesign the infrastructure for high availability and to eliminate manual release processes that were slowing down the engineering team.",
       "decisions": [
-        "Chose Next.js with App Router for server-first rendering and simplified API co-location",
-        "Implemented token-based authentication with JWT refresh rotation instead of session cookies for stateless horizontal scaling",
-        "Used PostgreSQL with row-level security policies to isolate multi-project data without separate databases",
-        "Containerized the entire stack with Docker Compose for reproducible local and production environments",
-        "Set up GitHub Actions CI/CD with staged deployment to preview and production targets"
+        "Designed and deployed a Multi-AZ AWS 3-tier architecture with public/private subnets, NAT gateways, and Application Load Balancers for zero-downtime failover",
+        "Migrated from EC2-based deployments to ECS Fargate (serverless containers), reducing deployment time by ~40% and enabling automatic horizontal scaling",
+        "Containerized all services with Docker and standardized dev/prod environments to eliminate 'works on my machine' issues",
+        "Configured CloudWatch dashboards, log groups, alarms, and SNS notifications for full observability across all services",
+        "Automated the entire CI/CD delivery cycle with GitHub Actions — build, test, push to ECR, and deploy to ECS — eliminating all manual deployments"
       ],
-      "outcome": "Consolidated five separate tools into one system. Deployment time dropped from manual 20-minute processes to automated 3-minute pipelines. All projects now share a single authentication layer.",
-      "relatedProject": null,
+      "outcome": "Deployment time dropped by approximately 40%. Infrastructure became fully self-healing under load with auto-scaling ECS tasks. Monitoring coverage went from zero to full observability within the first month. The team went from manual deployment every few days to automated continuous delivery.",
+      "relatedProject": "/projects/aws-cloud-architecture",
       "relatedNote": null
     },
     {
-      "id": "exp-2",
+      "id": "exp-beecoders-pfe",
       "context": {
-        "type": "Academic Project",
-        "timeframe": "2023 – 2024",
-        "team": "3 engineers"
+        "type": "Full-Stack Internship (Final Year Project)",
+        "timeframe": "Feb. 2024 – Jun. 2024",
+        "team": "Beecoders — Tunis, Tunisia"
       },
-      "problem": "Built a real-time plant disease detection system for agricultural research. The constraint was running inference on low-bandwidth connections with images captured from mobile devices in field conditions with inconsistent lighting and resolution.",
+      "problem": "A business needed a unified web application to manage memberships, appointments, and access control — replacing a fragmented set of spreadsheets and manual processes. An additional requirement was adding biometric access via face recognition to replace physical badge scanning.",
       "decisions": [
-        "Selected a lightweight CNN architecture (MobileNetV2) over heavier models to maintain sub-second inference on constrained hardware",
-        "Implemented server-side image preprocessing pipeline to normalize lighting and resolution before classification",
-        "Designed a REST API with queued inference to handle burst uploads without blocking the main thread",
-        "Used SQLite for local caching of recent predictions to provide offline fallback functionality"
+        "Built the full-stack application with Angular (frontend), Spring Boot (REST API), and MySQL — implementing membership lifecycle, appointment booking, and role-based dashboards for staff and admins",
+        "Implemented a secure face recognition module using Python and OpenCV, integrated as a microservice called by the Spring Boot backend during user authentication",
+        "Delivered iteratively under Agile/Scrum methodology with 2-week sprints, weekly demos, and structured backlog management",
+        "Designed database-level concurrency control for appointment booking to prevent double-booking under simultaneous requests"
       ],
-      "outcome": "Achieved 94% classification accuracy across 12 plant disease categories. The system handled 200+ daily field submissions with an average response time under 800ms.",
-      "relatedProject": null,
+      "outcome": "Delivered a production-ready application covering the full membership and appointment management lifecycle. The face recognition module achieved reliable authentication for enrolled users, replacing physical badge dependency. Project was validated as the PFE (Final Year Project) with high marks.",
+      "relatedProject": "/projects/crm-access-control",
       "relatedNote": null
     },
     {
-      "id": "exp-3",
+      "id": "exp-devsecops-pipeline",
       "context": {
-        "type": "Freelance",
-        "timeframe": "2024",
-        "team": "Solo"
+        "type": "Technical Project — DevSecOps",
+        "timeframe": "2025 – 2026",
+        "team": "Le Bon Développeur"
       },
-      "problem": "A small business needed an inventory and order management system to replace spreadsheet-based tracking that was causing duplicate orders and lost inventory records across three warehouse locations.",
+      "problem": "Needed to deploy a full-stack application to a VPS with a custom domain, HTTPS, automated infrastructure provisioning, and a full DevSecOps pipeline — including security scanning at every stage, without relying on managed cloud services.",
       "decisions": [
-        "Designed a normalized relational schema with optimistic locking to prevent concurrent edit conflicts",
-        "Built role-based access control with three permission tiers: warehouse staff, managers, and administrators",
-        "Implemented real-time stock synchronization across locations using WebSocket connections",
-        "Chose server-side rendering for the dashboard to minimize client-side JavaScript and improve load times on older hardware used in warehouses"
+        "Containerized the full application stack with Docker Compose and managed service dependencies declaratively",
+        "Automated server provisioning and configuration with Ansible (Infrastructure as Code) — making the entire VPS setup reproducible from scratch in minutes",
+        "Built a CI/CD pipeline with GitHub Actions covering: build, automated tests, Trivy container scanning, Snyk dependency audit, SonarQube static analysis, and automatic deployment to VPS",
+        "Configured Nginx as a reverse proxy with Let's Encrypt SSL/HTTPS and strict firewall rules via UFW",
+        "Set up real-time monitoring with Prometheus & Grafana — tracking CPU, memory, request rates, and container health"
       ],
-      "outcome": "Eliminated duplicate order entries entirely. Inventory discrepancy rate dropped from approximately 8% to under 1%. Staff onboarding time reduced because the interface matched their existing mental model of the workflow.",
-      "relatedProject": null,
-      "relatedNote": null
-    },
-    {
-      "id": "exp-4",
-      "context": {
-        "type": "Academic Project",
-        "timeframe": "2023",
-        "team": "2 engineers"
-      },
-      "problem": "Designed a secure file-sharing system for a university network security course. The primary constraint was implementing end-to-end encryption without relying on any external encryption service or library beyond standard Web Crypto API.",
-      "decisions": [
-        "Implemented AES-256-GCM encryption on the client side before upload to ensure zero-knowledge server architecture",
-        "Designed a key-exchange protocol using RSA-OAEP for secure sharing between authenticated users",
-        "Built chunked upload and download with integrity verification using SHA-256 checksums per chunk",
-        "Separated the authentication server from the file storage server to limit the blast radius of potential breaches"
-      ],
-      "outcome": "Passed all course security audit requirements. The system supported files up to 500MB with consistent encryption and decryption performance. Received highest grade in the cohort for architectural documentation.",
+      "outcome": "Fully automated deployment pipeline from git push to live production. Security scanning integrated at every CI stage with no manual intervention. Full observability stack running on a self-managed VPS with zero managed services.",
       "relatedProject": null,
       "relatedNote": null
     }

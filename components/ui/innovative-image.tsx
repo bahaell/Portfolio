@@ -58,7 +58,7 @@ export function InnovativeImage({ src, alt, className }: InnovativeImageProps) {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        <span className="text-[10px] font-mono font-medium tracking-wider text-primary">LIVE</span>
+                        /*<span className="text-[10px] font-mono font-medium tracking-wider text-primary">LIVE</span>*/
                     </div>
                 </div>
             </div>

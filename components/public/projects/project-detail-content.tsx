@@ -4,7 +4,7 @@ import React from "react"
 
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
-import { ArrowLeft, Github, ExternalLink, ChevronDown } from "lucide-react"
+import { ArrowLeft, Github, ExternalLink, ChevronDown, Play, Pause } from "lucide-react"
 import Link from "next/link"
 import type { ProjectDetail } from "@/data/projects"
 
@@ -995,7 +995,7 @@ function PfeDomainScopeSection() {
 }
 
 /* ── Video Hero ───────────────────────────────────────────── */
-function VideoHero({ project }: { project: ProjectDetail }) {
+function VideoHero({ project, isVideoActive, setIsVideoActive }: { project: ProjectDetail, isVideoActive: boolean, setIsVideoActive: (val: boolean) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const isCloudProject = project.slug === "aws-cloud-architecture"
   const isBlockchainProject = project.slug === "lost-and-found-dapp"
@@ -1006,24 +1006,32 @@ function VideoHero({ project }: { project: ProjectDetail }) {
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => { })
-        } else {
-          video.pause()
-        }
-      },
-      { threshold: 0.25 },
-    )
-    observer.observe(video)
-    return () => observer.disconnect()
-  }, [])
+    if (isVideoActive) {
+      video.play().catch(() => { })
+      // Optional: Enter fullscreen if supported
+      // if (video.requestFullscreen) video.requestFullscreen();
+    } else {
+      video.pause()
+    }
+  }, [isVideoActive])
 
   return (
-    <div className="relative w-full min-h-[70vh] sm:min-h-[80vh] flex items-end overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
+    <div className={cn("relative w-full flex items-end overflow-hidden transition-all duration-700", isVideoActive ? "h-screen min-h-screen" : "min-h-[70vh] sm:min-h-[80vh]")}>
+      {/* Video controls */}
+      {project.videoUrl && (
+        <div className="absolute top-18 right-18 sm:top-25 sm:right-40 z-50">
+          <button
+            onClick={() => setIsVideoActive(!isVideoActive)}
+            className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-black/30 hover:bg-black/60 backdrop-blur-md border border-white/20 text-white shadow-xl transition-all hover:scale-105 hover:border-white/40"
+            aria-label={isVideoActive ? "Pause video" : "Play video immersive"}
+          >
+            {isVideoActive ? <Pause className="h-10 w-10 sm:h-12 sm:w-12" /> : <Play className="h-10 w-10 sm:h-12 sm:w-12 ml-2" />}
+          </button>
+        </div>
+      )}
+
+      {/* Background (goes black when paused) */}
+      <div className={cn("absolute inset-0 transition-colors duration-700", !isVideoActive ? "bg-black" : "")}>
         {project.videoUrl ? (
           <video
             ref={videoRef}
@@ -1032,7 +1040,7 @@ function VideoHero({ project }: { project: ProjectDetail }) {
             loop
             playsInline
             preload="metadata"
-            className="h-full w-full object-cover"
+            className={cn("h-full w-full object-cover transition-opacity duration-700", !isVideoActive ? "opacity-20" : "opacity-85")}
           />
         ) : project.imageUrl ? (
           <img
@@ -1179,12 +1187,12 @@ function VideoHero({ project }: { project: ProjectDetail }) {
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-secondary via-background to-secondary" />
         )}
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
+        {/* Dark overlay: Fades out completely in immersive mode to show raw video */}
+        <div className={cn("absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30 transition-opacity duration-700", isVideoActive && "opacity-0")} />
       </div>
 
-      {/* Hero content */}
-      <div className="relative z-10 w-full px-4 sm:px-6 pb-12 sm:pb-16 pt-32">
+      {/* Hero content: Fades out in immersive mode */}
+      <div className={cn("relative z-10 w-full px-4 sm:px-6 pb-12 sm:pb-16 pt-32 transition-all duration-700", isVideoActive && "opacity-0 pointer-events-none translate-y-8")}>
         <div className="mx-auto max-w-4xl">
           {/* Back link */}
           <Link
@@ -1308,8 +1316,8 @@ function VideoHero({ project }: { project: ProjectDetail }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-mono text-sm text-primary hover:text-foreground transition-colors group/link"
               >
-                <ExternalLink className="h-4 w-4 transition-transform group-hover/link:scale-110" />
-                <span className="underline-animate">{isBlockchainProject ? "Testnet Demo" : "Live Demo"}</span>
+                {/*<ExternalLink className="h-4 w-4 transition-transform group-hover/link:scale-110" />
+                <span className="underline-animate">{isBlockchainProject ? "Testnet Demo" : "Live Demo"}</span>*/}
               </a>
             )}
           </div>
@@ -1326,6 +1334,7 @@ function VideoHero({ project }: { project: ProjectDetail }) {
 
 /* ── Main detail content ──────────────────────────────────── */
 export function ProjectDetailContent({ project }: { project: ProjectDetail }) {
+  const [isVideoActive, setIsVideoActive] = useState(false)
   const isCloudProject = project.slug === "aws-cloud-architecture"
   const isBlockchainProject = project.slug === "lost-and-found-dapp"
   const isSaasProject = project.slug === "portfolio-saas-platform"
@@ -1340,207 +1349,211 @@ export function ProjectDetailContent({ project }: { project: ProjectDetail }) {
   return (
     <article className="min-h-screen">
       {/* Hero */}
-      <VideoHero project={project} />
+      <VideoHero project={project} isVideoActive={isVideoActive} setIsVideoActive={setIsVideoActive} />
 
-      {/* Narrative content */}
-      <div className="px-4 sm:px-6">
-        <div className="mx-auto max-w-4xl">
+      {/* Narrative content - Hide everything below hero when video is active */}
+      <div className={cn("transition-all duration-700", isVideoActive ? "opacity-0 h-0 overflow-hidden" : "opacity-100")}>
+        {!isVideoActive && (
+          <div className="px-4 sm:px-6">
+            <div className="mx-auto max-w-4xl">
 
-          {/* AWS Services strip (cloud project only) */}
-          {isCloudProject && <AwsServicesStrip />}
+              {/* AWS Services strip (cloud project only) */}
+              {isCloudProject && <AwsServicesStrip />}
 
-          {/* Web3 Services strip (blockchain project only) */}
-          {isBlockchainProject && <Web3ServicesStrip />}
+              {/* Web3 Services strip (blockchain project only) */}
+              {isBlockchainProject && <Web3ServicesStrip />}
 
-          {/* Context */}
-          <NarrativeSection label="01 — Context">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-sm font-medium text-foreground mb-2">
-                  {isBlockchainProject ? "Problem & Motivation" : "Why this exists"}
-                </h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {project.context.why}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-foreground mb-2">Problem space</h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {project.context.problemSpace}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-foreground mb-2">Constraints</h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {project.context.constraints}
-                </p>
-              </div>
-            </div>
-          </NarrativeSection>
+              {/* Context */}
+              <NarrativeSection label="01 — Context">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-sm font-medium text-foreground mb-2">
+                      {isBlockchainProject ? "Problem & Motivation" : "Why this exists"}
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {project.context.why}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-foreground mb-2">Problem space</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {project.context.problemSpace}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-foreground mb-2">Constraints</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {project.context.constraints}
+                    </p>
+                  </div>
+                </div>
+              </NarrativeSection>
 
-          {/* Core Features / Architecture Overview */}{isPfeProject ? null : (
-            <NarrativeSection label={isCloudProject ? "02 — Architecture & Features" : "02 — System Architecture & Features"} delay={50}>
-              <div className="space-y-8">
-                {project.coreFeatures.map((feature, i) => (
-                  <div key={feature.title} className="flex gap-4">
-                    <span className="font-mono text-xs text-primary mt-1 shrink-0 w-6 text-right">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
+              {/* Core Features / Architecture Overview */}{isPfeProject ? null : (
+                <NarrativeSection label={isCloudProject ? "02 — Architecture & Features" : "02 — System Architecture & Features"} delay={50}>
+                  <div className="space-y-8">
+                    {project.coreFeatures.map((feature, i) => (
+                      <div key={feature.title} className="flex gap-4">
+                        <span className="font-mono text-xs text-primary mt-1 shrink-0 w-6 text-right">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div>
+                          <h3 className="text-sm sm:text-base font-medium text-foreground mb-1.5">
+                            {feature.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {feature.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </NarrativeSection>
+              )}
+
+              {/* SaaS-specific: Features Split (Implemented vs Planned) */}
+              {isSaasProject && <FeaturesSplitSection />}
+
+              {/* PFE-specific: System Actors */}
+              {isPfeProject && <SystemActorsSection />}
+
+              {/* PFE-specific: Functional Scope */}
+              {isPfeProject && <PfeDomainScopeSection />}
+
+              {/* Flutter-specific: Role-Based Features Split */}
+              {isFlutterProject && <RoleBasedFeaturesSection />}
+
+              {/* Flutter-specific: Matching Algorithm */}
+              {isFlutterProject && <MatchingAlgorithmSection />}
+
+              {/* Blockchain-specific: Smart Contract Design */}
+              {isBlockchainProject && <SmartContractSection />}
+
+              {/* Blockchain-specific: User Flow Timeline */}
+              {isBlockchainProject && <UserFlowTimeline />}
+
+              {/* Engineering Decisions */}
+              <NarrativeSection
+                label={`${getSectionNum(isBlockchainProject ? 5 : isSaasProject ? 4 : isFlutterProject ? 5 : isPfeProject ? 4 : 3)} — Engineering Decisions`}
+                delay={100}
+              >
+                <div className="space-y-8">
+                  {project.engineeringDecisions.map((item) => (
+                    <div key={item.decision}>
                       <h3 className="text-sm sm:text-base font-medium text-foreground mb-1.5">
-                        {feature.title}
+                        {item.decision}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        {feature.description}
+                        {item.reasoning}
                       </p>
                     </div>
+                  ))}
+                </div>
+              </NarrativeSection>
+
+              {/* Blockchain-specific: On-chain / Off-chain section */}
+              {isBlockchainProject && <OnChainOffChainSection />}
+
+              {/* Challenges */}
+              <NarrativeSection
+                label={`${getSectionNum(isBlockchainProject ? 7 : isSaasProject ? 5 : isFlutterProject ? 6 : isPfeProject ? 5 : 4)} — Challenges & Trade-offs`}
+                delay={100}
+              >
+                <div className="space-y-8">
+                  {project.challenges.map((item) => (
+                    <div key={item.obstacle} className="space-y-2">
+                      <h3 className="text-sm sm:text-base font-medium text-foreground">
+                        {item.obstacle}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed pl-0 sm:pl-4 border-l-0 sm:border-l-2 sm:border-primary/30">
+                        {item.resolution}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </NarrativeSection>
+
+              {/* Architecture (optional) */}
+              {project.architecture && (
+                <NarrativeSection
+                  label={`${getSectionNum(isBlockchainProject ? 8 : isSaasProject ? 6 : isFlutterProject ? 7 : isPfeProject ? 6 : 5)} — Architecture Snapshot`}
+                  delay={50}
+                >
+                  <div className={cn(
+                    "rounded-xl border border-border/50 bg-secondary/20 p-6 sm:p-8 overflow-x-auto",
+                    isCloudProject && "border-primary/20",
+                    isBlockchainProject && "border-primary/20",
+                    isPfeProject && "border-primary/20",
+                  )}>
+                    <pre className="font-mono text-xs sm:text-sm text-muted-foreground leading-relaxed whitespace-pre">
+                      {project.architecture}
+                    </pre>
                   </div>
-                ))}
-              </div>
-            </NarrativeSection>
-          )}
+                </NarrativeSection>
+              )}
 
-          {/* SaaS-specific: Features Split (Implemented vs Planned) */}
-          {isSaasProject && <FeaturesSplitSection />}
+              {/* Tech Stack strips */}
+              {isCloudProject && <TechStackStrip items={awsTechStackItems} />}
+              {isBlockchainProject && <TechStackStrip items={web3TechStack} />}
+              {isSaasProject && <TechStackStrip items={saasTechStack} />}
+              {isFlutterProject && <TechStackStrip items={flutterTechStack} />}
+              {isPfeProject && <TechStackStrip items={pfeTechStack} />}
 
-          {/* PFE-specific: System Actors */}
-          {isPfeProject && <SystemActorsSection />}
-
-          {/* PFE-specific: Functional Scope */}
-          {isPfeProject && <PfeDomainScopeSection />}
-
-          {/* Flutter-specific: Role-Based Features Split */}
-          {isFlutterProject && <RoleBasedFeaturesSection />}
-
-          {/* Flutter-specific: Matching Algorithm */}
-          {isFlutterProject && <MatchingAlgorithmSection />}
-
-          {/* Blockchain-specific: Smart Contract Design */}
-          {isBlockchainProject && <SmartContractSection />}
-
-          {/* Blockchain-specific: User Flow Timeline */}
-          {isBlockchainProject && <UserFlowTimeline />}
-
-          {/* Engineering Decisions */}
-          <NarrativeSection
-            label={`${getSectionNum(isBlockchainProject ? 5 : isSaasProject ? 4 : isFlutterProject ? 5 : isPfeProject ? 4 : 3)} — Engineering Decisions`}
-            delay={100}
-          >
-            <div className="space-y-8">
-              {project.engineeringDecisions.map((item) => (
-                <div key={item.decision}>
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-1.5">
-                    {item.decision}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.reasoning}
+              {/* Value & Impact */}
+              <NarrativeSection
+                label={`${getSectionNum(isBlockchainProject ? 9 : isSaasProject ? 7 : isFlutterProject ? 8 : (project.architecture ? 6 : 5))} — Value & Engineering Impact`}
+                delay={50}
+              >
+                <div className="space-y-5">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    {project.impact.summary}
                   </p>
+                  <ul className="space-y-3">
+                    {project.impact.points.map((point) => (
+                      <li key={point} className="flex items-start gap-3 text-sm text-muted-foreground">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                        <span className="leading-relaxed">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
-            </div>
-          </NarrativeSection>
+              </NarrativeSection>
 
-          {/* Blockchain-specific: On-chain / Off-chain section */}
-          {isBlockchainProject && <OnChainOffChainSection />}
+              {/* Key Learnings & Future (optional) */}
+              {project.keyLearnings && project.keyLearnings.length > 0 && (
+                <NarrativeSection
+                  label={isBlockchainProject ? "10 — Learnings & Future Improvements" : isSaasProject ? "08 — Learnings & Design Philosophy" : isFlutterProject ? "09 — Learnings & Observations" : isPfeProject ? "08 — Key Learnings" : "Key Learnings"}
+                  delay={50}
+                >
+                  <ul className="space-y-4">
+                    {project.keyLearnings.map((learning) => (
+                      <li key={learning} className="flex items-start gap-3">
+                        <span className="mt-1 font-mono text-xs text-primary shrink-0">--</span>
+                        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                          {learning}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </NarrativeSection>
+              )}
 
-          {/* Challenges */}
-          <NarrativeSection
-            label={`${getSectionNum(isBlockchainProject ? 7 : isSaasProject ? 5 : isFlutterProject ? 6 : isPfeProject ? 5 : 4)} — Challenges & Trade-offs`}
-            delay={100}
-          >
-            <div className="space-y-8">
-              {project.challenges.map((item) => (
-                <div key={item.obstacle} className="space-y-2">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground">
-                    {item.obstacle}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed pl-0 sm:pl-4 border-l-0 sm:border-l-2 sm:border-primary/30">
-                    {item.resolution}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </NarrativeSection>
+              {/* SaaS-specific: Active Development Status Footer */}
+              {isSaasProject && <ProjectStatusFooter />}
 
-          {/* Architecture (optional) */}
-          {project.architecture && (
-            <NarrativeSection
-              label={`${getSectionNum(isBlockchainProject ? 8 : isSaasProject ? 6 : isFlutterProject ? 7 : isPfeProject ? 6 : 5)} — Architecture Snapshot`}
-              delay={50}
-            >
-              <div className={cn(
-                "rounded-xl border border-border/50 bg-secondary/20 p-6 sm:p-8 overflow-x-auto",
-                isCloudProject && "border-primary/20",
-                isBlockchainProject && "border-primary/20",
-                isPfeProject && "border-primary/20",
-              )}>
-                <pre className="font-mono text-xs sm:text-sm text-muted-foreground leading-relaxed whitespace-pre">
-                  {project.architecture}
-                </pre>
+              {/* Back navigation */}
+              <div className="py-16 sm:py-20 border-t border-border/30 flex justify-center">
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-2.5 font-mono text-sm text-muted-foreground hover:text-primary transition-colors group"
+                >
+                  <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                  Back to all projects
+                </Link>
               </div>
-            </NarrativeSection>
-          )}
-
-          {/* Tech Stack strips */}
-          {isCloudProject && <TechStackStrip items={awsTechStackItems} />}
-          {isBlockchainProject && <TechStackStrip items={web3TechStack} />}
-          {isSaasProject && <TechStackStrip items={saasTechStack} />}
-          {isFlutterProject && <TechStackStrip items={flutterTechStack} />}
-          {isPfeProject && <TechStackStrip items={pfeTechStack} />}
-
-          {/* Value & Impact */}
-          <NarrativeSection
-            label={`${getSectionNum(isBlockchainProject ? 9 : isSaasProject ? 7 : isFlutterProject ? 8 : (project.architecture ? 6 : 5))} — Value & Engineering Impact`}
-            delay={50}
-          >
-            <div className="space-y-5">
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                {project.impact.summary}
-              </p>
-              <ul className="space-y-3">
-                {project.impact.points.map((point) => (
-                  <li key={point} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                    <span className="leading-relaxed">{point}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
-          </NarrativeSection>
-
-          {/* Key Learnings & Future (optional) */}
-          {project.keyLearnings && project.keyLearnings.length > 0 && (
-            <NarrativeSection
-              label={isBlockchainProject ? "10 — Learnings & Future Improvements" : isSaasProject ? "08 — Learnings & Design Philosophy" : isFlutterProject ? "09 — Learnings & Observations" : isPfeProject ? "08 — Key Learnings" : "Key Learnings"}
-              delay={50}
-            >
-              <ul className="space-y-4">
-                {project.keyLearnings.map((learning) => (
-                  <li key={learning} className="flex items-start gap-3">
-                    <span className="mt-1 font-mono text-xs text-primary shrink-0">--</span>
-                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                      {learning}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </NarrativeSection>
-          )}
-
-          {/* SaaS-specific: Active Development Status Footer */}
-          {isSaasProject && <ProjectStatusFooter />}
-
-          {/* Back navigation */}
-          <div className="py-16 sm:py-20 border-t border-border/30 flex justify-center">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2.5 font-mono text-sm text-muted-foreground hover:text-primary transition-colors group"
-            >
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-              Back to all projects
-            </Link>
           </div>
-        </div>
+        )}
       </div>
     </article>
   )

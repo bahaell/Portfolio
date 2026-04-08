@@ -6,7 +6,6 @@ import { EngineeringFocus } from "@/components/engineering-focus"
 import { TechStack } from "@/components/tech-stack"
 import { PersonalRoadmap } from "@/components/personal-roadmap"
 import { EngineeringImpact } from "@/components/engineering-impact"
-import { Workbench } from "@/components/workbench"
 import { Footer } from "@/components/footer"
 import { CursorGlow } from "@/components/cursor-glow"
 import { generateWebsiteStructuredData, generatePersonStructuredData } from "@/lib/structured-data"
@@ -37,7 +36,6 @@ export default function Home() {
           <TechStack />
           <PersonalRoadmap />
           <EngineeringImpact />
-          <Workbench />
           <Footer />
         </div>
       </main>
