@@ -4,6 +4,7 @@ export interface ProjectDetail {
   title: string
   description: string
   tags: string[]
+  category: "Web Systems" | "Cloud & Infra" | "Intelligent Systems" | "Blockchain" | "Mobile"
   status: "shipped" | "in-progress" | "archived"
   year: string
   stars: number
@@ -48,6 +49,7 @@ export const projects: ProjectDetail[] = [
     description:
       "A centralized, intelligent SaaS platform to manage the entire lifecycle of university Final-Year Projects (PFE) — from topic selection to final defense. Built with a microservices architecture for institutional scale.",
     tags: ["Next.js", "Spring Boot", "Firebase", "Microservices", "System Design"],
+    category: "Web Systems",
     status: "in-progress",
     year: "2026",
     stars: 0,
@@ -172,6 +174,7 @@ export const projects: ProjectDetail[] = [
     description:
       "Design and implementation of a highly available, secure, and scalable AWS cloud infrastructure. The project starts with a traditional EC2-based architecture and evolves into a modern serverless container-based platform using ECS Fargate.",
     tags: ["AWS", "ECS Fargate", "Docker", "RDS", "CloudFront", "VPC", "CloudWatch", "Terraform"],
+    category: "Cloud & Infra",
     status: "shipped",
     year: "2025",
     stars: 0,
@@ -335,6 +338,7 @@ export const projects: ProjectDetail[] = [
       "Wagmi",
       "Node.js",
     ],
+    category: "Blockchain",
     status: "shipped",
     year: "2025",
     stars: 0,
@@ -498,6 +502,7 @@ export const projects: ProjectDetail[] = [
     description:
       "Full-stack campus navigation and lost & found system. Integrated NLP chatbot with CNN-based image recognition for item tracking. Deployed with Docker microservices, NGINX reverse proxy, and automated CI/CD via GitHub Actions.",
     tags: ["Angular", "Spring Boot", "Docker", "CI/CD", "NLP", "CNN", "REST API"],
+    category: "Intelligent Systems",
     status: "shipped",
     year: "2024",
     stars: 0,
@@ -616,6 +621,7 @@ export const projects: ProjectDetail[] = [
     description:
       "Secure medical appointment booking platform. Implemented OAuth 2.0 and JWT-based authentication, real-time notifications, and AI chatbot powered by Gemini API. Dockerized full-stack with MongoDB and secure REST API design.",
     tags: ["Angular", "Node.js", "Express", "MySQL", "OAuth2", "JWT", "Docker"],
+    category: "Web Systems",
     status: "archived",
     year: "2024",
     stars: 0,
@@ -716,6 +722,7 @@ export const projects: ProjectDetail[] = [
     description:
       "End-to-end car rental system with interactive vehicle tracking map. Integrated QR code-based reservation confirmation, secure payment processing via Flouci API, and real-time availability management.",
     tags: ["Angular", "Node.js", "MongoDB", "Docker", "Payment API", "QR Code"],
+    category: "Web Systems",
     status: "archived",
     year: "2023",
     stars: 0,
@@ -791,6 +798,7 @@ export const projects: ProjectDetail[] = [
     description:
       "Internship project: Facial recognition-based access control and membership management. Python-based face_recognition pipeline integrated with Spring Boot APIs. Automated booking system, real-time notifications, and Agile delivery process.",
     tags: ["Angular", "Spring Boot", "Python", "Facial Recognition", "MySQL", "REST API"],
+    category: "Intelligent Systems",
     status: "archived",
     year: "2023",
     stars: 0,
@@ -888,6 +896,7 @@ export const projects: ProjectDetail[] = [
       "Auth.js",
       "Vercel",
     ],
+    category: "Web Systems",
     status: "in-progress",
     year: "2025",
     stars: 0,
@@ -1030,6 +1039,7 @@ export const projects: ProjectDetail[] = [
       "TMDB API",
       "Provider",
     ],
+    category: "Mobile",
     status: "archived",
     year: "2025",
     stars: 0,

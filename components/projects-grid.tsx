@@ -6,7 +6,7 @@ import { Github, Star, GitFork, ExternalLink, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { projects } from "@/data/projects"
 
-const filters = ["all", "shipped", "in-progress", "archived"]
+const categories = ["all", ...Array.from(new Set(projects.map((p) => p.category))).sort()]
 
 interface ProjectsGridProps {
   limit?: number
@@ -16,8 +16,8 @@ interface ProjectsGridProps {
 export function ProjectsGrid({ limit, showSeeMore }: ProjectsGridProps) {
   const [activeFilter, setActiveFilter] = useState("all")
 
-  // Filter projects first
-  const allFilteredProjects = activeFilter === "all" ? projects : projects.filter((p) => p.status === activeFilter)
+  // Filter projects by category
+  const allFilteredProjects = activeFilter === "all" ? projects : projects.filter((p) => p.category === activeFilter)
 
   // Then apply limit if provided
   const displayProjects = limit ? allFilteredProjects.slice(0, limit) : allFilteredProjects
@@ -32,18 +32,18 @@ export function ProjectsGrid({ limit, showSeeMore }: ProjectsGridProps) {
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible sm:flex-wrap scrollbar-hide animate-fade-in-up stagger-2">
-            {filters.map((filter) => (
+            {categories.map((category) => (
               <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
+                key={category}
+                onClick={() => setActiveFilter(category)}
                 className={cn(
                   "shrink-0 rounded-lg border px-5 py-2.5 font-mono text-xs uppercase tracking-wider transition-all duration-300 active:scale-[0.98]",
-                  activeFilter === filter
+                  activeFilter === category
                     ? "border-primary bg-primary/15 text-primary shadow-sm shadow-primary/20"
                     : "border-border text-muted-foreground hover:border-foreground/50 hover:text-foreground hover:bg-secondary/50",
                 )}
               >
-                {filter}
+                {category}
               </button>
             ))}
           </div>
@@ -134,12 +134,12 @@ export function ProjectsGrid({ limit, showSeeMore }: ProjectsGridProps) {
                   <Github className="h-4 w-4" />
                   <span className="underline-animate">source</span>
                 </span>
-                {project.homepage && (
+                {/*project.homepage && (
                   <span className="flex items-center gap-2 font-mono text-xs text-primary group-hover:text-foreground transition-all duration-300">
                     <ExternalLink className="h-4 w-4" />
                     <span className="underline-animate">live</span>
                   </span>
-                )}
+                )*/}
               </div>
 
               <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-primary via-primary/80 to-transparent transition-all duration-500 group-hover:w-full" />

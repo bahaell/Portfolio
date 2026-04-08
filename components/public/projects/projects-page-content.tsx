@@ -7,13 +7,11 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { projects } from "@/data/projects"
 
-const filters = ["all", "shipped", "in-progress", "archived"]
-const allTags = [...new Set(projects.flatMap((p) => p.tags))].sort()
+const categories = ["all", ...Array.from(new Set(projects.map((p) => p.category))).sort()]
 
 export function ProjectsPageContent() {
-  const [activeFilter, setActiveFilter] = useState("all")
+  const [activeCategory, setActiveCategory] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -23,18 +21,15 @@ export function ProjectsPageContent() {
   }, [])
 
   const filteredProjects = projects.filter((p) => {
-    const matchesFilter = activeFilter === "all" || p.status === activeFilter
+    const matchesCategory = activeCategory === "all" || p.category === activeCategory
     const matchesSearch =
       searchQuery === "" ||
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesTags = selectedTags.length === 0 || selectedTags.some((tag) => p.tags.includes(tag))
-    return matchesFilter && matchesSearch && matchesTags
+      p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    
+    return matchesCategory && matchesSearch
   })
-
-  const toggleTag = (tag: string) => {
-    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
-  }
 
   return (
     <section ref={sectionRef} className="px-4 sm:px-6 py-12 sm:py-20">
@@ -62,39 +57,21 @@ export function ProjectsPageContent() {
             />
           </div>
 
-          {/* Status Filters */}
-          <div className="flex flex-wrap gap-2">
-            {filters.map((filter) => (
+          {/* Category Filters */}
+          <div className="flex flex-wrap items-center gap-2">
+            <Filter className="h-4 w-4 text-muted-foreground mr-2 hidden sm:block" />
+            {categories.map((category) => (
               <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
+                key={category}
+                onClick={() => setActiveCategory(category)}
                 className={cn(
                   "rounded-lg border px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all duration-300 active:scale-[0.98]",
-                  activeFilter === filter
+                  activeCategory === category
                     ? "border-primary bg-primary/15 text-primary shadow-sm shadow-primary/20"
                     : "border-border text-muted-foreground hover:border-foreground/50 hover:text-foreground hover:bg-secondary/50",
                 )}
               >
-                {filter}
-              </button>
-            ))}
-          </div>
-
-          {/* Tag Filters */}
-          <div className="flex flex-wrap gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground mr-2 self-center" />
-            {allTags.slice(0, 10).map((tag) => (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={cn(
-                  "rounded-md border px-2.5 py-1 font-mono text-xs transition-all duration-200",
-                  selectedTags.includes(tag)
-                    ? "border-primary/50 bg-primary/10 text-primary"
-                    : "border-border/60 bg-secondary/40 text-muted-foreground hover:border-primary/30 hover:text-foreground",
-                )}
-              >
-                {tag}
+                {category}
               </button>
             ))}
           </div>

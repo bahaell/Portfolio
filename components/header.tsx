@@ -12,7 +12,6 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "Profile", href: "/introduction" },
-  //{ label: "Workbench", href: "/workbench" },
 ]
 
 const socialLinks = [
@@ -171,8 +170,8 @@ export function Header() {
         {/* Mobile Menu */}
         <div
           className={cn(
-            " transition-all duration-400 md:hidden bg-background",
-            isMobileMenuOpen ? "max-h-96 opacity-100 pt-4" : "max-h-0 opacity-0",
+            "transition-all duration-400 md:hidden bg-background overflow-hidden",
+            isMobileMenuOpen ? "max-h-[500px] opacity-100 pt-4 pointer-events-auto" : "max-h-0 opacity-0 pointer-events-none",
           )}
         >
           <div className="flex flex-col gap-1 border-t border-border/50 pt-4">
