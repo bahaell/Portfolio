@@ -3,7 +3,7 @@ import { ProjectDetailContent } from "@/components/public/projects/project-detai
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://eindev.ir"
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
 
 export async function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }))

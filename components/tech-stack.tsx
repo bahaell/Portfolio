@@ -143,6 +143,38 @@ function LinuxLogo() {
   )
 }
 
+function FastApiLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M12 0C5.375 0 0 5.375 0 12c0 6.626 5.375 12 12 12 6.626 0 12-5.374 12-12 0-6.625-5.374-12-12-12zm-.624 21.62v-7.528H7.19L13.203 2.38v7.528h4.029L11.376 21.62z" />
+    </svg>
+  )
+}
+
+function JenkinsLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M2.285 15.535C1.61 13.953 1.28 12.22 1.28 10.484c0-4.68 2.618-8.99 6.82-11.08.094-.048.188.04.14.134C6.75 2.33 6.283 5.376 6.747 8.082c.04.234.328.3.46.1.745-1.147 1.264-2.44 1.52-3.788.044-.232.35-.286.47-.077 1.674 2.948 2.254 6.427 1.616 9.773-.055.29.258.506.494.327 1.3-.986 2.254-2.356 2.734-3.9.084-.27.44-.316.584-.072 1.09 1.852 1.46 4.026 1.028 6.1a.248.248 0 0 0 .362.278c1.248-.69 2.27-1.74 2.9-3.02.11-.225.42-.204.5.032.614 1.797.65 3.76.054 5.578C17.9 22.45 13.74 24.03 9.936 23.25c-3.52-.723-6.29-3.467-7.33-6.93a10.5 10.5 0 0 1-.32-1.784zm16.88-5.79c-.066-.302-.47-.362-.617-.09-.553 1.02-1.362 1.878-2.343 2.486-.26.162-.563-.076-.494-.373.564-2.395.22-4.944-.953-7.1-.12-.22-.432-.19-.508.047-.51 1.594-1.46 3.02-2.742 4.1-.29.24-.7.02-.7-.35-.002-2.52-.924-4.97-2.568-6.882a.27.27 0 0 0-.46.065C5.52 4.09 4.96 7.05 5.2 9.98c.02.26-.26.43-.475.29C3.488 9.26 2.636 7.97 2.28 6.54c-.08-.32-.48-.378-.636-.09C.59 8.21 0 10.33 0 12.45c0 6.628 5.373 12 12 12s12-5.372 12-12c0-2.41-.714-4.652-1.94-6.524-.194-.295-.637-.22-.717.12-.37 1.583-1.187 3.03-2.18 3.7z" />
+    </svg>
+  )
+}
+
+function SonarQubeLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M.5 16.843a.5.5 0 0 0 .5.5h1.375a.5.5 0 0 0 .5-.5V8.657a6.89 6.89 0 0 1 6.89-6.89c3.8 0 6.89 3.09 6.89 6.89a6.89 6.89 0 0 1-6.89 6.89H8.25a.5.5 0 0 0 0 1h1.515A8.265 8.265 0 0 0 18.03 8.267v-.3C17.725 3.565 14.055.5 9.765.5A8.265 8.265 0 0 0 .5 8.765v8.078zm3.6.335a.5.5 0 0 1 .5-.5h2.665c.276 0 .5.224.5.5v4.822a.5.5 0 0 1-.5.5H4.6a.5.5 0 0 1-.5-.5v-4.822zm6.51-.335a.5.5 0 0 0-.5.5v4.157a.5.5 0 0 0 .5.5h2.665a.5.5 0 0 0 .5-.5v-4.157a.5.5 0 0 0-.5-.5H10.61zm5.01 1.825a.5.5 0 0 1 .5-.5h2.665a.5.5 0 0 1 .5.5v2.332a.5.5 0 0 1-.5.5H16.12a.5.5 0 0 1-.5-.5v-2.332zm5.01-2.325a.5.5 0 0 0-.5.5v4.657a.5.5 0 0 0 .5.5H23.5a.5.5 0 0 0 .5-.5v-4.657a.5.5 0 0 0-.5-.5H20.62z" />
+    </svg>
+  )
+}
+
+function PolicyLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z" />
+    </svg>
+  )
+}
+
 const layers: TechLayer[] = [
   {
     title: "User Interface & Interaction",
@@ -183,8 +215,20 @@ const layers: TechLayer[] = [
     technologies: [
       { name: "Docker", logo: <DockerLogo /> },
       { name: "GitHub Actions", logo: <GithubActionsLogo /> },
+      { name: "Jenkins", logo: <JenkinsLogo /> },
       { name: "NGINX", logo: <NginxLogo /> },
       { name: "Linux", logo: <LinuxLogo /> },
+    ],
+  },
+  {
+    title: "DevSecOps & Security",
+    responsibility:
+      "Integrating security at every stage of the CI/CD pipeline — from static analysis and dependency auditing to Policy as Code, image signing, and AI-powered vulnerability triage.",
+    technologies: [
+      { name: "SonarQube", logo: <SonarQubeLogo /> },
+      { name: "FastAPI", logo: <FastApiLogo /> },
+      { name: "Policy as Code", logo: <PolicyLogo /> },
+      { name: "PostgreSQL", logo: <MySqlLogo /> },
     ],
   },
 ]

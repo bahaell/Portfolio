@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils"
-import { Code2, Lock, Container, Zap } from "lucide-react"
+import { Code2, Lock, Container, Zap, ShieldCheck } from "lucide-react"
 
 const pillars = [
   {
     id: 1,
     title: "Full-Stack Web Systems",
     description:
-      "Designed, built, and deployed complete applications with end-to-end ownership — database schemas, API layers, authentication flows, and responsive frontends. Delivered working systems across Angular, React, Spring Boot, and Node.js with structured codebases maintained through production lifecycles.",
+      "Designed, built, and deployed complete applications with end-to-end ownership — database schemas, API layers, authentication flows, and responsive frontends. Delivered working systems across Angular, React, Next.js, Spring Boot, and Node.js with structured codebases maintained through production lifecycles.",
     icon: Code2,
     color: "from-blue-500/20 to-cyan-500/20",
   },
@@ -22,15 +22,23 @@ const pillars = [
     id: 3,
     title: "Cloud & DevOps",
     description:
-      "Architected multi-AZ AWS infrastructure with VPC network isolation, ECS Fargate container orchestration, and CloudFront edge distribution. Automated build-test-deploy pipelines with GitHub Actions and Docker multi-stage builds, delivering reproducible deployments across isolated staging and production environments.",
+      "Architected multi-AZ AWS infrastructure with VPC network isolation, ECS Fargate container orchestration, and CloudFront edge distribution. Automated build-test-deploy pipelines with GitHub Actions, Jenkins, and Docker multi-stage builds — delivering reproducible deployments across isolated staging and production environments.",
     icon: Container,
     color: "from-emerald-500/20 to-teal-500/20",
   },
   {
     id: 4,
+    title: "DevSecOps & Security Engineering",
+    description:
+      "Built end-to-end DevSecOps pipelines integrating SAST (Semgrep), container scanning (Trivy), secret detection (Gitleaks), SonarQube quality gates, SBOM generation (Syft), Policy as Code (OPA/Rego), and cryptographic image signing (Cosign). Automated deployment decisions using 10 declarative security rules — blocking unsafe releases without human intervention.",
+    icon: ShieldCheck,
+    color: "from-orange-500/20 to-red-500/20",
+  },
+  {
+    id: 5,
     title: "Intelligent Features & Automation",
     description:
-      "Integrated NLP chatbots, facial recognition, and embedding-based similarity matching into deployed systems as first-class features. Built hybrid AI pipelines with proxy-layer isolation, rate limiting, and graceful degradation — ensuring intelligent capabilities operate within production reliability constraints.",
+      "Integrated NLP chatbots, facial recognition, and LLM-powered security analysis (Google Gemini) into deployed systems. Built hybrid AI pipelines with JSON Schema enforcement for structured output, rate limiting, and graceful degradation — ensuring intelligent capabilities operate within production reliability constraints.",
     icon: Zap,
     color: "from-purple-500/20 to-pink-500/20",
   },
@@ -50,7 +58,7 @@ export function EngineeringFocus() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon
             return (

@@ -4,7 +4,7 @@ export interface ProjectDetail {
   title: string
   description: string
   tags: string[]
-  category: "Web Systems" | "Cloud & Infra" | "Intelligent Systems" | "Blockchain" | "Mobile"
+  category: "Web Systems" | "Cloud & Infra" | "Intelligent Systems" | "Blockchain" | "Mobile" | "DevSecOps"
   status: "shipped" | "in-progress" | "archived"
   year: string
   stars: number
@@ -1190,6 +1190,159 @@ export const projects: ProjectDetail[] = [
       "Firestore arrayUnion/arrayRemove operations are atomic but not transactional -- defensive UI patterns are still necessary for rapid user actions",
       "API key management is a design decision, not a deployment detail. Client-side API calls should be proxied in production to prevent key exposure",
       "Role-based access control requires enforcement at both the UI level (route guards) and the data level (Firestore rules) to be meaningful",
+    ],
+  },
+  {
+    id: 9,
+    slug: "devsecops-pipeline-manager",
+    title: "DEVSECOPS PIPELINE MANAGER",
+    description:
+      "End-to-end DevSecOps platform built during a summer internship at i-Way. Orchestrates a 20-stage Jenkins CI/CD pipeline integrating 8 security tools (Semgrep, Trivy, Gitleaks, OPA, Cosign, Syft, SonarQube), an AI-powered security advisor using Google Gemini, and a real-time Next.js dashboard.",
+    tags: ["FastAPI", "Next.js", "Jenkins", "Docker", "SonarQube", "Semgrep", "OPA", "Google Gemini", "PostgreSQL", "Python"],
+    category: "DevSecOps",
+    status: "shipped",
+    year: "2026",
+    stars: 0,
+    forks: 0,
+    url: "https://gitlab.com/devsecops-pipeline-manager",
+    homepage: undefined,
+    featured: true,
+    highlight: true,
+    context: {
+      why: "In modern dev teams, security is often treated as an afterthought — reviewed only before production, making fixes expensive and late. This internship project at i-Way aimed to solve that by integrating security at every stage of the development lifecycle (shift-left security), automating decisions with Policy as Code, and adding AI interpretation of security reports.",
+      problemSpace:
+        "No unified tool existed to trigger a full security pipeline from a GUI, centralize all results (tests, quality, SAST, vulnerabilities, SBOM, AI), automate deployment decisions based on security policies, and interpret reports with AI recommendations.",
+      constraints:
+        "2-month summer internship timeline. Solo developer. Integration with on-premise Jenkins and GitLab self-hosted instances. AI responses must be structured JSON (not free text) to be machine-parsable. Jenkins pipeline size limitation (MethodTooLargeException) required Groovy refactoring.",
+    },
+    coreFeatures: [
+      {
+        title: "20-Stage Jenkins Pipeline (Multi-Language)",
+        description:
+          "A 2929-line Jenkinsfile supporting Python, JavaScript, and Java projects. Auto-detects language, runs unit tests (pytest/Jest/JUnit), code quality (pylint/ESLint/SonarQube), SAST (Semgrep), dependency audit (pip-audit/npm audit), secret detection (Gitleaks), Docker build + Trivy scan, SBOM generation (Syft), AI analysis (Gemini), OPA policy evaluation, image signing (Cosign), and final deployment.",
+      },
+      {
+        title: "AI Security Advisor (Google Gemini)",
+        description:
+          "Python script executed as a Jenkins stage. Reads all security reports (SAST, dependencies, container scan, SBOM), builds a structured prompt, and queries Gemini with a strict JSON Schema to produce prioritized security recommendations (Critical/High/Medium/Low), action steps, and a deployment decision. 100% machine-parsable output guaranteed by schema validation.",
+      },
+      {
+        title: "Policy as Code (OPA / Rego)",
+        description:
+          "10 declarative security rules written in Rego evaluated by Open Policy Agent. Blocks deployment automatically on: failed tests, >10 quality bugs, SAST findings, detected secrets, critical container vulnerabilities, or SBOM failure. Policy is versioned in Git alongside the codebase.",
+      },
+      {
+        title: "Supply Chain Security (Cosign)",
+        description:
+          "Docker images are cryptographically signed with Cosign (asymmetric keys) after being pushed to GitLab Registry. Signature is verified in the next stage — making it impossible to deploy an tampered image. Full software supply chain integrity from build to deployment.",
+      },
+      {
+        title: "FastAPI Backend + PostgreSQL",
+        description:
+          "Python 3.12 REST API with 5 routers and 20+ endpoints. Orchestrates Jenkins via its REST API, parses build artifacts (XML JUnit, JSON, TXT), persists all pipeline data in 7 PostgreSQL tables, and serves structured data to the frontend. SQLAlchemy ORM with psycopg3 driver.",
+      },
+      {
+        title: "Real-time Next.js Dashboard",
+        description:
+          "11-page Next.js 15 interface with real-time pipeline monitoring (polling every 2.5s), security results visualization (Recharts graphs, severity badges), AI recommendations display, SBOM explorer, compliance checker, and project management. Built with shadcn/ui, Radix UI, and TailwindCSS.",
+      },
+    ],
+    engineeringDecisions: [
+      {
+        decision: "JSON Schema strict validation for Gemini AI responses",
+        reasoning:
+          "Free-text LLM responses are unparsable in automated pipelines. Using google-genai SDK's JSON Schema enforcement guarantees a structured, machine-readable output every time. Pydantic validates the response before writing to disk and database.",
+      },
+      {
+        decision: "OPA as authoritative deployment gate, Gemini as advisory",
+        reasoning:
+          "These two systems can diverge (OPA may allow while Gemini flags risks). Architecture deliberately separates them: OPA enforces hard rules (deterministic, versioned), Gemini provides human-readable interpretation and contextual advice. Neither overrides the other.",
+      },
+      {
+        decision: "Custom Jenkins Docker image with 7 embedded security tools",
+        reasoning:
+          "Installing tools at pipeline runtime is slow and flaky. Embedding Semgrep, Trivy, Syft, Cosign, OPA, Gitleaks, and SonarQube Scanner in a custom Dockerfile ensures deterministic, fast pipeline execution with all dependencies pre-installed.",
+      },
+      {
+        decision: "FastAPI over Flask or Express for the backend",
+        reasoning:
+          "FastAPI's async support, automatic OpenAPI docs, Pydantic model validation, and Python ecosystem alignment (same language as AI scripts) made it the right choice. Performance and type safety without boilerplate.",
+      },
+      {
+        decision: "Polling over WebSockets for pipeline monitoring",
+        reasoning:
+          "Jenkins does not natively support WebSocket streaming. Polling every 2.5s provides near-real-time feedback without requiring a proxy layer or additional Jenkins plugins. Acceptable UX tradeoff for a pipeline that runs 15+ minutes.",
+      },
+    ],
+    challenges: [
+      {
+        obstacle: "Jenkins MethodTooLargeException on a 2929-line Jenkinsfile",
+        resolution:
+          "Groovy's JVM bytecode limit per method was hit. Extracted all pipeline logic into annotated Groovy methods with @groovy.transform.Field for shared state. Each stage became a method call, reducing the main pipeline body to an orchestration layer.",
+      },
+      {
+        obstacle: "Gemini returning inconsistent JSON structure across calls",
+        resolution:
+          "Switched from prompt-only JSON requests to google-genai SDK's responseMimeType + responseSchema parameters. This enforces the exact JSON structure at the API level, not just in the prompt. Zero schema violations after this change.",
+      },
+      {
+        obstacle: "Divergent deployment decisions between OPA and Gemini",
+        resolution:
+          "Clarified architecture: OPA is the authoritative gate (hard rules, automated), Gemini is advisory (contextual interpretation, human-readable). Frontend displays both independently so operators can see the policy decision and the AI's rationale side by side.",
+      },
+      {
+        obstacle: "Git submodules appearing as empty on enterprise GitLab server",
+        resolution:
+          "Company GitLab used a different Git server URL than what was in .gitmodules. Documented the difference between 160000 (submodule) and 040000 (tree) commit modes. Resolved by configuring .gitmodules with the correct server URL.",
+      },
+    ],
+    impact: {
+      summary:
+        "Delivered a production-grade DevSecOps platform during a 2-month summer internship at i-Way, demonstrating end-to-end ownership from infrastructure design (custom Jenkins Docker image) to AI integration (Gemini security advisor) — covering the full spectrum of modern secure software delivery.",
+      points: [
+        "8 security tools integrated into a single automated pipeline (Semgrep, Trivy, Gitleaks, OPA, Cosign, Syft, SonarQube, pip-audit)",
+        "AI-powered security analysis with Google Gemini producing structured, actionable recommendations",
+        "Policy as Code with OPA: 10 automated security gates blocking unsafe deployments",
+        "Supply chain security via cryptographic image signing with Cosign",
+        "Full persistence: 138+ build results stored in PostgreSQL with queryable history",
+        "15-minute end-to-end pipeline covering tests, quality, SAST, dependencies, container scan, SBOM, AI, signing, and deployment",
+      ],
+    },
+    architecture: `BROWSER
+  |  HTTP
+  v
+FRONTEND — Next.js 15 (TypeScript + TailwindCSS)
+  Pages: Dashboard | Pipeline Monitor | Security | AI Recommendations
+  Port: 3000
+  |  REST API
+  v
+BACKEND — FastAPI (Python 3.12)
+  Routes: /projects /pipelines /reports /recommendations
+  ORM: SQLAlchemy + psycopg3
+  Port: 8000
+  |                          |
+  v                          v
+PostgreSQL (port 5433)    Jenkins (port 8080)
+  7 tables:                  PIPELINE (Jenkinsfile — 20+ stages)
+  - pipelines                |-- Checkout (GitLab)
+  - test_results             |-- Unit Tests (pytest/Jest/JUnit)
+  - security_results         |-- SonarQube Analysis
+  - ai_results               |-- SAST (Semgrep)
+  - ...                      |-- Dependency Audit (pip-audit)
+                             |-- Secret Detection (Gitleaks)
+                             |-- Docker Build
+                             |-- Container Scan (Trivy)
+                             |-- SBOM (Syft / CycloneDX)
+                             |-- AI Security Advisor (Gemini)
+                             |-- Policy as Code (OPA / Rego)
+                             |-- Image Sign (Cosign)
+                             +-- Deploy (Docker Compose)`,
+    keyLearnings: [
+      "JSON Schema enforcement at the API level (not just in prompts) is the only reliable way to get structured LLM output in automated pipelines",
+      "Policy as Code (OPA/Rego) is the right abstraction for deployment gates — declarative, versioned, testable, and auditable",
+      "A custom Jenkins Docker image with pre-installed tools is a fundamental prerequisite for deterministic CI pipelines",
+      "Separating authoritative policy decisions (OPA) from advisory AI analysis (Gemini) is a clean architectural pattern for AI-assisted automation",
+      "Shift-left security is an organizational and tooling discipline — the tooling (Semgrep, Gitleaks, SBOM) is the easy part; integrating it into the developer workflow without friction is the hard part",
     ],
   },
 ]

@@ -23,7 +23,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://eindev.ir'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || ''),
   title: {
     default: "BeE — Bahaeddine Ellouze's Portfolio",
     template: "%s | BeE",

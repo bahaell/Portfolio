@@ -3,6 +3,25 @@
   "introduction": "Real-world engineering work — from cloud infrastructure migration to full-stack product delivery. Each entry focuses on technical decisions made and their measurable outcomes.",
   "experiences": [
     {
+      "id": "exp-iway-devsecops",
+      "context": {
+        "type": "DevSecOps Engineering Internship",
+        "timeframe": "Jul. 2026 – Aug. 2026",
+        "team": "i-Way — Tunis, Tunisia"
+      },
+      "problem": "Development teams at i-Way lacked a unified platform to enforce security throughout the CI/CD lifecycle. Security checks were manual, results were scattered across tools, and there was no automated mechanism to block unsafe deployments or interpret security reports at scale.",
+      "decisions": [
+        "Designed and built an end-to-end DevSecOps platform from scratch: a custom Jenkins Docker image embedding 7 security tools (Semgrep, Trivy, Gitleaks, Syft, Cosign, OPA, SonarQube), a FastAPI backend with 20+ REST endpoints, and an 11-page Next.js dashboard",
+        "Implemented a 20-stage Jenkins pipeline (2929-line Jenkinsfile) with multi-language support — covering tests, quality, SAST, dependency audit, container scanning, SBOM generation, AI analysis, Policy as Code evaluation, image signing, and deployment",
+        "Integrated Google Gemini as an AI Security Advisor stage in the pipeline, using a strict JSON Schema to guarantee structured, machine-parsable recommendations — zero schema violations after switching to SDK-level schema enforcement",
+        "Implemented Policy as Code with OPA/Rego: 10 declarative security rules that automatically block deployment on critical violations (secrets detected, CVE thresholds exceeded, tests failed, SonarQube Quality Gate not passed)",
+        "Added supply chain security via Cosign: Docker images are cryptographically signed after pushing to GitLab Registry and verified before deployment"
+      ],
+      "outcome": "Delivered a production-grade platform processing 138+ real builds during the internship. End-to-end pipeline runtime of ~15 minutes covering the full DevSecOps lifecycle. All pipeline data persisted in PostgreSQL with full historical traceability. The platform demonstrated measurable shift-left security: every code change triggers automated analysis before it can reach staging.",
+      "relatedProject": "/projects/devsecops-pipeline-manager",
+      "relatedNote": null
+    },
+    {
       "id": "exp-cloud-officent",
       "context": {
         "type": "Cloud Engineering Internship",

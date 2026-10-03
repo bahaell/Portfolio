@@ -28,8 +28,8 @@ export function generatePersonStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Bahaeddine Ellouze',
-    url: 'https://eindev.ir',
-    image: 'https://eindev.ir/developer-portrait.png',
+    url: '',
+    image: '',
     sameAs: [
       'https://github.com/bahaell',
       'https://linkedin.com/in/baha-ellouze',

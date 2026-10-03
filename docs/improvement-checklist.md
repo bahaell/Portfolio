@@ -102,7 +102,6 @@ Create `loading.tsx` files with skeleton screens:
 - [ ] `app/(public)/blog/loading.tsx`
 - [ ] `app/(public)/blog/[postSlug]/loading.tsx`
 - [ ] `app/(public)/projects/loading.tsx`
-- [ ] `app/(public)/workbench/loading.tsx`
 
 **Template**:
 \`\`\`tsx
@@ -274,7 +273,7 @@ import { blogPosts } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = blogPosts.map((post) => ({
-    url: `https://eindev.ir/blog/${post.slug}`,
+    url: ``,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -282,13 +281,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: 'https://eindev.ir',
+      url: '',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: 'https://eindev.ir/blog',
+      url: '',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -551,14 +550,14 @@ export async function GET() {
 <rss version="2.0">
   <channel>
     <title>BeE Blog</title>
-    <link>https://eindev.ir/blog</link>
+    <link></link>
     <description>Code, experiments, and digital artifacts</description>
     ${blogPosts
       .map(
         (post) => `
     <item>
       <title>${post.title}</title>
-      <link>https://eindev.ir/blog/${post.slug}</link>
+      <link></link>
       <description>${post.excerpt}</description>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     </item>`

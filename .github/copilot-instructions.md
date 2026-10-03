@@ -28,7 +28,7 @@ Help contributors rapidly make safe, small improvements and fixes in a Next.js 1
   - `pnpm build` — production build (runs `next build`)
   - `pnpm start` — serve the built app
   - `pnpm lint` — runs `eslint .`
-- Verify changes rapidly by running `pnpm dev` and visiting the route under test (e.g. `/`, `/blog`, `/projects`, `/workbench`).
+- Verify changes rapidly by running `pnpm dev` and visiting the route under test (e.g. `/`, `/blog`, `/projects`).
 - There are no automated tests in the repo; adding tests requires an explicit discussion in the PR.
 
 ## When making changes (AI agent checklist)

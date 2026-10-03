@@ -5,5 +5,4 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 
-# Sitemap
-Sitemap: https://eindev.ir/sitemap.xml
+

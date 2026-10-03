@@ -368,7 +368,6 @@ export default function Loading() {
 Create for:
 - `app/(public)/blog/loading.tsx`
 - `app/(public)/projects/loading.tsx`
-- `app/(public)/workbench/loading.tsx`
 
 ## Error Boundaries
 
