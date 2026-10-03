@@ -175,6 +175,30 @@ function PolicyLogo() {
   )
 }
 
+function PythonLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.36.1-.37.04h-3.3l-.37-.04-.36-.1-.35-.14-.35-.19-.33-.25-.3-.31-.26-.38-.21-.46-.13-.55-.05-.63v-5h3.23c.14 0 .23-.1.23-.23V2.35c0-.13-.1-.23-.23-.23H4.6c-.66 0-1.2.54-1.2 1.2v3.37c0 .66.54 1.2 1.2 1.2h1.16v3.42l.04.37.1.35.16.33.2.3.26.27.3.24.33.2.35.15.36.1.37.04h3.3l.37-.04.36-.1.35-.15.33-.2.3-.24.26-.27.2-.3.16-.33.1-.35.04-.37v-3.42h-1.16c-.66 0-1.2-.54-1.2-1.2V4.7c0-.66.54-1.2 1.2-1.2h3.23zm-4.9 15.32l-.9-.2-.73-.26-.59-.3-.45-.32-.34-.34-.25-.34-.16-.33-.1-.3-.04-.26-.02-.2.01-.13V15.5l.05-.63.13-.55.21-.46.26-.38.3-.31.33-.25.35-.19.35-.14.36-.1.37-.04h3.3l.37.04.36.1.35.14.35.19.33.25.3.31.26.38.21.46.13.55.05.63v5h-3.23c-.14 0-.23.1-.23.23v1.38c0 .13.1.23.23.23h5.05c.66 0 1.2-.54 1.2-1.2v-3.37c0-.66-.54-1.2-1.2-1.2h-1.16v-3.42l-.04-.37-.1-.35-.16-.33-.2-.3-.26-.27-.3-.24-.33-.2-.35-.15-.36-.1-.37-.04h-3.3l-.37.04-.36.1-.35.15-.33.2-.3.24-.26.27-.2.3-.16.33-.1.35-.04.37v3.42h1.16c.66 0 1.2.54 1.2 1.2v3.42c0 .66-.54 1.2-1.2 1.2H9.35z"/>
+    </svg>
+  )
+}
+
+function TensorFlowLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M1.292 5.856L11.54 0v24l-4.71-2.716v-9.35L1.292 8.742zm21.416 0L12.46 0v24l4.71-2.716v-9.35l5.538-3.192zM6.83 17.51l4.71 2.715V8.932z"/>
+    </svg>
+  )
+}
+
+function ScikitLearnLogo() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4 shrink-0" aria-hidden="true">
+      <path d="M12 0a12 12 0 1 0 12 12A12.013 12.013 0 0 0 12 0zm0 21.6a9.6 9.6 0 1 1 9.6-9.6 9.611 9.611 0 0 1-9.6 9.6zm3.36-13.44a3.36 3.36 0 1 0 3.36 3.36 3.36 3.36 0 0 0-3.36-3.36zm0 5.28a1.92 1.92 0 1 1 1.92-1.92 1.92 1.92 0 0 1-1.92 1.92zm-6.72-5.28A3.36 3.36 0 1 0 12 11.52a3.36 3.36 0 0 0-3.36-3.36zm0 5.28a1.92 1.92 0 1 1 1.92-1.92 1.92 1.92 0 0 1-1.92 1.92z"/>
+    </svg>
+  )
+}
+
 const layers: TechLayer[] = [
   {
     title: "User Interface & Interaction",
@@ -229,6 +253,16 @@ const layers: TechLayer[] = [
       { name: "FastAPI", logo: <FastApiLogo /> },
       { name: "Policy as Code", logo: <PolicyLogo /> },
       { name: "PostgreSQL", logo: <MySqlLogo /> },
+    ],
+  },
+  {
+    title: "Data Science & AI",
+    responsibility:
+      "Developing machine learning pipelines, deep learning models, and data processing architectures for intelligent systems.",
+    technologies: [
+      { name: "Python", logo: <PythonLogo /> },
+      { name: "TensorFlow", logo: <TensorFlowLogo /> },
+      { name: "Scikit-Learn", logo: <ScikitLearnLogo /> },
     ],
   },
 ]

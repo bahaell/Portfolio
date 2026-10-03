@@ -76,6 +76,25 @@
       "outcome": "Fully automated deployment pipeline from git push to live production. Security scanning integrated at every CI stage with no manual intervention. Full observability stack running on a self-managed VPS with zero managed services.",
       "relatedProject": null,
       "relatedNote": null
+    },
+    {
+      "id": "exp-plant-disease-ml",
+      "context": {
+        "type": "Academic Project — Machine Learning & Deep Learning",
+        "timeframe": "2023",
+        "team": "Bahaeddine ELLOUZE & Omar CHOKRI"
+      },
+      "problem": "Crop diseases cause significant agricultural losses, but manual identification is slow and error-prone. A scalable, automated system was needed to classify diseases across multiple plant species (Corn, Potato, Tomato) to assist farmers in early detection.",
+      "decisions": [
+        "Built a complete Machine Learning and Deep Learning pipeline handling data ingestion, preprocessing, augmentation, and classification of 12 distinct leaf conditions",
+        "Selected MobileNetV2 for the primary Deep Learning architecture due to its optimal balance of high accuracy and low computational overhead, suitable for edge devices",
+        "Utilized Transfer Learning with ImageNet weights to prevent overfitting on the PlantVillage dataset (13,500 images) and accelerate model convergence",
+        "Implemented traditional ML models (Random Forest, SVC) with custom feature extraction (GLCM, color histograms) to establish a rigorous benchmark against deep learning approaches",
+        "Addressed severe class imbalance by applying dynamic class weights and targeted image augmentation (rotation, flipping) for minority classes"
+      ],
+      "outcome": "Successfully trained a robust MobileNetV2 model that significantly outperformed traditional ML baselines, providing highly accurate predictions across all 12 classes. The project demonstrated the viability of lightweight CNNs for precision agriculture and highlighted the importance of robust data preprocessing.",
+      "relatedProject": "/projects/plant-disease-detection",
+      "relatedNote": null
     }
   ]
 }

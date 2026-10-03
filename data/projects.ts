@@ -1345,6 +1345,80 @@ PostgreSQL (port 5433)    Jenkins (port 8080)
       "Shift-left security is an organizational and tooling discipline — the tooling (Semgrep, Gitleaks, SBOM) is the easy part; integrating it into the developer workflow without friction is the hard part",
     ],
   },
+  {
+    id: 10,
+    slug: "plant-disease-detection",
+    title: "PLANT DISEASE DETECTION",
+    description:
+      "A Machine Learning and Deep Learning pipeline for automatic detection and classification of plant diseases across 12 categories of corn, potato, and tomato.",
+    tags: ["Python", "TensorFlow", "Keras", "Scikit-Learn", "OpenCV", "Deep Learning"],
+    category: "Intelligent Systems",
+    status: "shipped",
+    year: "2023",
+    stars: 12,
+    forks: 3,
+    url: "/projects/plant-disease-detection",
+    featured: true,
+    highlight: false,
+    imageUrl: "/projects/plant-disease.png",
+    context: {
+      why: "Plant diseases cause significant agricultural losses globally. Early and accurate detection can help farmers take preventive measures, reducing crop loss and pesticide overuse.",
+      problemSpace: "Manual disease identification is slow, prone to human error, and requires expert knowledge that is often inaccessible to small-scale farmers.",
+      constraints: "The model needed to be lightweight enough to potentially run on edge devices while maintaining high accuracy across 12 distinct classes.",
+    },
+    coreFeatures: [
+      {
+        title: "Deep Learning Classification",
+        description: "Utilizes MobileNetV2 architecture fine-tuned on the PlantVillage dataset to classify 12 distinct leaf conditions with high accuracy.",
+      },
+      {
+        title: "Traditional ML Benchmark",
+        description: "Implements Random Forest and Support Vector Classifier (SVC) models with extracted features (GLCM, color histograms) to benchmark against deep learning approaches.",
+      },
+      {
+        title: "Automated Data Preprocessing",
+        description: "Robust preprocessing pipeline including image resizing, normalization, and data augmentation to handle variations in lighting and leaf orientation.",
+      },
+    ],
+    engineeringDecisions: [
+      {
+        decision: "MobileNetV2 as the primary Deep Learning architecture",
+        reasoning:
+          "MobileNetV2 offers an excellent trade-off between accuracy and computational efficiency. Its inverted residual blocks and depthwise separable convolutions make it ideal for resource-constrained environments like mobile apps for farmers.",
+      },
+      {
+        decision: "Transfer Learning approach",
+        reasoning:
+          "Training a CNN from scratch on a limited dataset (13,500 images) often leads to overfitting. Leveraging pre-trained ImageNet weights allowed the model to converge faster and generalize better to leaf textures.",
+      },
+    ],
+    challenges: [
+      {
+        obstacle: "Class Imbalance in the dataset",
+        resolution:
+          "Some disease classes had significantly fewer images than healthy classes. Addressed by applying class weights during model training and utilizing data augmentation techniques (rotation, flipping) for minority classes.",
+      },
+      {
+        obstacle: "Overfitting on background noise",
+        resolution:
+          "Initial models were learning the background (soil, hands) instead of the leaf symptoms. Solved by improving the segmentation pipeline and applying center cropping to focus on the leaf pathology.",
+      },
+    ],
+    impact: {
+      summary:
+        "Developed a highly accurate classification system capable of identifying 12 different plant conditions, demonstrating the viability of deep learning in precision agriculture.",
+      points: [
+        "Processed and analyzed a dataset of over 13,500 high-resolution images",
+        "Achieved superior accuracy with MobileNetV2 compared to traditional ML models",
+        "Created a complete end-to-end pipeline from data ingestion to model evaluation",
+      ],
+    },
+    keyLearnings: [
+      "Deep Learning models (CNNs) significantly outperform traditional ML models (RF, SVC) on raw image data due to their ability to learn hierarchical spatial features",
+      "Transfer learning is crucial for computer vision tasks with limited domain-specific data",
+      "Data quality and preprocessing (handling class imbalance, normalization) are just as important as the choice of model architecture",
+    ],
+  },
 ]
 
 export function getProjectBySlug(slug: string): ProjectDetail | undefined {

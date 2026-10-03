@@ -38,7 +38,7 @@ const pillars = [
     id: 5,
     title: "Intelligent Features & Automation",
     description:
-      "Integrated NLP chatbots, facial recognition, and LLM-powered security analysis (Google Gemini) into deployed systems. Built hybrid AI pipelines with JSON Schema enforcement for structured output, rate limiting, and graceful degradation — ensuring intelligent capabilities operate within production reliability constraints.",
+      "Built and deployed end-to-end Machine Learning pipelines for computer vision (disease detection via MobileNetV2), facial recognition, and LLM-powered security analysis. Integrated AI capabilities into web platforms with strict validation for structured outputs, ensuring intelligent features operate reliably in production.",
     icon: Zap,
     color: "from-purple-500/20 to-pink-500/20",
   },
